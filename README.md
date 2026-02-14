@@ -15,9 +15,10 @@ A modern, headless Laravel 12 starter template for building robust APIs. Perfect
 ## Quick Start
 
 ```bash
-# Clone the repository
-git clone https://github.com/YOUR_USERNAME/laravel-headless-starter.git
-cd laravel-headless-starter
+# Use this template on GitHub (click "Use this template" button)
+# Or clone your new repository
+git clone https://github.com/YOUR_USERNAME/your-project-name.git
+cd your-project-name
 
 # Install dependencies and setup
 composer setup
