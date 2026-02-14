@@ -21,6 +21,9 @@ A modern, headless Laravel 12 starter template for building robust APIs. Perfect
 git clone https://github.com/YOUR_USERNAME/your-project-name.git
 cd your-project-name
 
+# Setup environment (symlink is already created)
+php artisan key:generate
+
 # Install dependencies and setup
 composer setup
 
@@ -77,6 +80,33 @@ With Octane + FrankenPHP, expect:
 - Zero-downtime deployments with `octane:reload`
 
 See [OCTANE.md](OCTANE.md) for detailed configuration and tuning guide.
+
+## Environment Configuration
+
+Environment files are organized in the `env/` directory:
+
+- **`env/.env`** - Active environment (symlinked to root `.env`)
+- **`env/.env.local`** - Local development template
+- **`env/.env.production`** - Production deployment template
+- **`env/.env.testing`** - Automated testing configuration
+- **`env/.env.example`** - Example template for new developers
+
+### Switching Environments
+
+```bash
+# For local development (default)
+ln -sf env/.env.local .env
+
+# For production
+ln -sf env/.env.production .env
+php artisan key:generate
+composer optimize
+
+# For testing (automatic when running tests)
+# Laravel uses env/.env.testing automatically
+```
+
+See [env/README.md](env/README.md) for detailed environment configuration guide.
 
 ## Testing
 

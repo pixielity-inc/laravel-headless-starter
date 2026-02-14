@@ -1,11 +1,130 @@
+# ==============================================================================
+# Laravel Headless Starter - .gitattributes
+# ==============================================================================
+# Git attributes for consistent line endings and export behavior
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Auto detect text files and normalize line endings to LF
+# ------------------------------------------------------------------------------
 * text=auto eol=lf
 
-*.blade.php diff=html
-*.css diff=css
-*.html diff=html
-*.md diff=markdown
-*.php diff=php
+# ------------------------------------------------------------------------------
+# Source Code
+# ------------------------------------------------------------------------------
+*.php text diff=php
+*.blade.php text diff=html
+*.js text
+*.ts text
+*.jsx text
+*.tsx text
+*.json text
+*.css text diff=css
+*.scss text
+*.sass text
+*.less text
 
+# ------------------------------------------------------------------------------
+# Templates & Markup
+# ------------------------------------------------------------------------------
+*.html text diff=html
+*.xml text
+*.svg text
+*.twig text
+
+# ------------------------------------------------------------------------------
+# Documentation
+# ------------------------------------------------------------------------------
+*.md text diff=markdown
+*.txt text
+*.rst text
+
+# ------------------------------------------------------------------------------
+# Configuration Files
+# ------------------------------------------------------------------------------
+*.yml text
+*.yaml text
+*.toml text
+*.ini text
+*.conf text
+*.config text
+.editorconfig text
+.gitattributes text
+.gitignore text
+
+# ------------------------------------------------------------------------------
+# Shell Scripts
+# ------------------------------------------------------------------------------
+*.sh text eol=lf
+*.bash text eol=lf
+
+# ------------------------------------------------------------------------------
+# Docker
+# ------------------------------------------------------------------------------
+Dockerfile text
+docker-compose.yml text
+.dockerignore text
+
+# ------------------------------------------------------------------------------
+# Environment Files
+# ------------------------------------------------------------------------------
+.env* text
+*.env text
+
+# ------------------------------------------------------------------------------
+# Binary Files
+# ------------------------------------------------------------------------------
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mov binary
+*.mp4 binary
+*.mp3 binary
+*.flv binary
+*.fla binary
+*.swf binary
+*.gz binary
+*.zip binary
+*.7z binary
+*.ttf binary
+*.eot binary
+*.woff binary
+*.woff2 binary
+*.pdf binary
+
+# ------------------------------------------------------------------------------
+# Archives
+# ------------------------------------------------------------------------------
+*.tar binary
+*.gz binary
+*.bz2 binary
+*.xz binary
+*.zip binary
+*.rar binary
+
+# ------------------------------------------------------------------------------
+# Exclude from exports (git archive)
+# ------------------------------------------------------------------------------
 /.github export-ignore
-CHANGELOG.md export-ignore
-.styleci.yml export-ignore
+/.vscode export-ignore
+/.idea export-ignore
+/tests export-ignore
+/phpunit.xml export-ignore
+/.editorconfig export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/CONTRIBUTING.md export-ignore
+/OCTANE.md export-ignore
+/env/README.md export-ignore
+/.env.example export-ignore
+/env/.env.example export-ignore
+/env/.env.local export-ignore
+/env/.env.production export-ignore
+/env/.env.testing export-ignore
+
+# ------------------------------------------------------------------------------
+# Linguist (GitHub language detection)
+# ------------------------------------------------------------------------------
+*.blade.php linguist-language=php
