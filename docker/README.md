@@ -183,68 +183,93 @@ docker-compose -f docker-compose.yml \
 
 ## Environment Variables
 
-Create a `.env` file in the project root with these variables:
+**Simple approach: Use your existing `.env` file with Docker service names!**
+
+### Quick Setup
+
+```bash
+# 1. Copy template (if you don't have .env yet)
+cp env/.env.local .env
+
+# 2. Update ONLY these host names for Docker:
+DB_HOST=postgres          # Change from 127.0.0.1
+REDIS_HOST=redis          # Change from 127.0.0.1
+MAIL_HOST=mailpit         # Change from 127.0.0.1 (if using Mailpit)
+REVERB_HOST=reverb        # Change from localhost (if using Reverb)
+
+# 3. Start Docker
+docker-compose -f docker/docker-compose.full.yml up -d
+```
+
+### Docker Service Names (Hosts)
+
+When using Docker, change these hosts in your `.env`:
+
+| Service | Local Host | Docker Host |
+|---------|-----------|-------------|
+| PostgreSQL | `127.0.0.1` | `postgres` |
+| MySQL | `127.0.0.1` | `mysql` |
+| Redis | `127.0.0.1` | `redis` |
+| MinIO | `127.0.0.1` | `minio` |
+| Meilisearch | `127.0.0.1` | `meilisearch` |
+| Mailpit | `127.0.0.1` | `mailpit` |
+| Reverb | `localhost` | `reverb` |
+
+### Complete Docker Configuration Reference
+
+See `env/.env.docker.example` for all Docker-specific values. Key changes:
 
 ```env
-# App
-APP_PORT=8000
-APP_ENV=local
-APP_DEBUG=true
-
-# PostgreSQL
+# Database
 DB_CONNECTION=pgsql
 DB_HOST=postgres
-DB_PORT=5432
 DB_DATABASE=laravel
 DB_USERNAME=laravel
 DB_PASSWORD=secret
 
-# pgAdmin
-PGADMIN_PORT=5050
-PGADMIN_EMAIL=admin@admin.com
-PGADMIN_PASSWORD=admin
-
 # Redis
 REDIS_HOST=redis
 REDIS_PASSWORD=redis_password
-REDIS_PORT=6379
-CACHE_DRIVER=redis
+CACHE_STORE=redis
 SESSION_DRIVER=redis
 QUEUE_CONNECTION=redis
 
-# MinIO
-MINIO_ENDPOINT=http://minio:9000
-MINIO_ROOT_USER=minioadmin
-MINIO_ROOT_PASSWORD=minioadmin
-AWS_ACCESS_KEY_ID=minioadmin
-AWS_SECRET_ACCESS_KEY=minioadmin
-AWS_DEFAULT_REGION=us-east-1
-AWS_BUCKET=laravel
-AWS_ENDPOINT=http://minio:9000
-AWS_USE_PATH_STYLE_ENDPOINT=true
-
-# Meilisearch
-MEILISEARCH_HOST=http://meilisearch:7700
-MEILISEARCH_KEY=masterKey
-
-# Mailpit
+# Mail (Mailpit)
 MAIL_MAILER=smtp
 MAIL_HOST=mailpit
 MAIL_PORT=1025
-MAIL_USERNAME=null
-MAIL_PASSWORD=null
-MAIL_ENCRYPTION=null
 
-# Laravel Reverb
-REVERB_APP_ID=app-id
-REVERB_APP_KEY=app-key
-REVERB_APP_SECRET=app-secret
+# Reverb
+BROADCAST_CONNECTION=reverb
 REVERB_HOST=reverb
 REVERB_PORT=8080
-REVERB_SCHEME=http
 
-# Queue Workers
-QUEUE_WORKERS=2
+# MinIO (optional)
+FILESYSTEM_DISK=s3
+AWS_ENDPOINT=http://minio:9000
+AWS_ACCESS_KEY_ID=minioadmin
+AWS_SECRET_ACCESS_KEY=minioadmin
+AWS_USE_PATH_STYLE_ENDPOINT=true
+
+# Meilisearch (optional)
+MEILISEARCH_HOST=http://meilisearch:7700
+MEILISEARCH_KEY=masterKey
+```
+
+### Switching Between Local and Docker
+
+**Going from Local to Docker:**
+```bash
+# Change hosts to Docker service names
+sed -i '' 's/DB_HOST=127.0.0.1/DB_HOST=postgres/' .env
+sed -i '' 's/REDIS_HOST=127.0.0.1/REDIS_HOST=redis/' .env
+```
+
+**Going from Docker to Local:**
+```bash
+# Change hosts back to localhost
+sed -i '' 's/DB_HOST=postgres/DB_HOST=127.0.0.1/' .env
+sed -i '' 's/REDIS_HOST=redis/REDIS_HOST=127.0.0.1/' .env
 ```
 
 ## Management Commands
