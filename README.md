@@ -43,7 +43,7 @@ vendor/bin/pint
 Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 - `main` branch - Stable releases
-- `dev` branch - Active development
+- `develop` branch - Active development
 
 ## License
 

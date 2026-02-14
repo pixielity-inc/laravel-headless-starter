@@ -5,15 +5,15 @@ Thanks for your interest in improving this template! Here's how you can contribu
 ## Development Workflow
 
 1. Fork the repository
-2. Create a feature branch from `dev`
+2. Create a feature branch from `develop`
 3. Make your changes
 4. Test thoroughly
-5. Submit a pull request to `dev` branch
+5. Submit a pull request to `develop` branch
 
 ## Branch Strategy
 
 - `main` - Stable releases only
-- `dev` - Active development and testing
+- `develop` - Active development and testing
 
 ## Guidelines
 
