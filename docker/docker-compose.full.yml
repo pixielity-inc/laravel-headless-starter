@@ -17,17 +17,25 @@ services:
     container_name: laravel-app
     ports:
       - "${APP_PORT:-8000}:8000"
+    env_file:
+      - ../env/.env
     environment:
       - APP_ENV=${APP_ENV:-local}
       - APP_DEBUG=${APP_DEBUG:-true}
-      - DB_CONNECTION=${DB_CONNECTION:-pgsql}
+      - DB_CONNECTION=pgsql
       - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=${DB_DATABASE:-laravel}
+      - DB_USERNAME=${DB_USERNAME:-laravel}
+      - DB_PASSWORD=${DB_PASSWORD:-secret}
       - REDIS_HOST=redis
-      - CACHE_DRIVER=redis
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-redis_password}
+      - CACHE_STORE=redis
       - SESSION_DRIVER=redis
       - QUEUE_CONNECTION=redis
     volumes:
       - ../storage:/app/storage
+      - ../bootstrap/cache:/app/bootstrap/cache
     restart: unless-stopped
     depends_on:
       - postgres
@@ -131,15 +139,26 @@ services:
     command: php artisan reverb:start --host=0.0.0.0 --port=8080
     ports:
       - "${REVERB_PORT:-8080}:8080"
+    env_file:
+      - ../env/.env
     environment:
-      - REVERB_APP_ID=app-id
-      - REVERB_APP_KEY=app-key
-      - REVERB_APP_SECRET=app-secret
+      - APP_ENV=${APP_ENV:-local}
+      - DB_CONNECTION=pgsql
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=${DB_DATABASE:-laravel}
+      - DB_USERNAME=${DB_USERNAME:-laravel}
+      - DB_PASSWORD=${DB_PASSWORD:-secret}
+      - REVERB_APP_ID=${REVERB_APP_ID:-app-id}
+      - REVERB_APP_KEY=${REVERB_APP_KEY:-app-key}
+      - REVERB_APP_SECRET=${REVERB_APP_SECRET:-app-secret}
     volumes:
       - ../storage:/app/storage
+      - ../bootstrap/cache:/app/bootstrap/cache
     restart: unless-stopped
     depends_on:
       - app
+      - postgres
     networks:
       - laravel
 
@@ -150,18 +169,28 @@ services:
       dockerfile: docker/Dockerfile
     container_name: laravel-queue-worker
     command: php artisan queue:work --tries=3 --timeout=90
+    env_file:
+      - ../env/.env
     environment:
       - APP_ENV=${APP_ENV:-local}
       - DB_CONNECTION=pgsql
       - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=${DB_DATABASE:-laravel}
+      - DB_USERNAME=${DB_USERNAME:-laravel}
+      - DB_PASSWORD=${DB_PASSWORD:-secret}
       - REDIS_HOST=redis
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-redis_password}
       - QUEUE_CONNECTION=redis
+      - CACHE_STORE=redis
     volumes:
       - ../storage:/app/storage
+      - ../bootstrap/cache:/app/bootstrap/cache
     restart: unless-stopped
     depends_on:
       - app
       - redis
+      - postgres
     networks:
       - laravel
 
@@ -176,15 +205,25 @@ services:
         php artisan schedule:run --verbose --no-interaction &
         sleep 60
       done"
+    env_file:
+      - ../env/.env
     environment:
       - APP_ENV=${APP_ENV:-local}
       - DB_CONNECTION=pgsql
       - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=${DB_DATABASE:-laravel}
+      - DB_USERNAME=${DB_USERNAME:-laravel}
+      - DB_PASSWORD=${DB_PASSWORD:-secret}
+      - REDIS_HOST=redis
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-redis_password}
     volumes:
       - ../storage:/app/storage
+      - ../bootstrap/cache:/app/bootstrap/cache
     restart: unless-stopped
     depends_on:
       - app
+      - postgres
     networks:
       - laravel
 
