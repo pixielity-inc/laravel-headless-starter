@@ -53,9 +53,9 @@ php artisan octane:start --workers=2 --watch
 
 ```bash
 # Using the startup script (recommended)
-./octane-start.sh
+composer octane:prod
 
-# Or manually
+# Or manually with custom settings
 php artisan octane:start --server=frankenphp --host=0.0.0.0 --port=8000
 ```
 
