@@ -12,6 +12,7 @@ A modern, headless Laravel 12 starter template for building robust APIs. Perfect
 - 📦 SQLite database (easily switchable)
 - 🐳 Docker support with FrankenPHP
 - 🔥 HTTP/2 and HTTP/3 ready
+- 📁 Organized project structure (docs/, docker/, env/)
 
 ## Quick Start
 
@@ -41,7 +42,7 @@ composer dev:traditional
 
 ```bash
 # Build and start with Docker Compose
-docker-compose up -d
+docker-compose -f docker/docker-compose.yml up -d
 
 # Your API will be available at http://localhost:8000
 ```
@@ -79,7 +80,7 @@ With Octane + FrankenPHP, expect:
 - Efficient memory usage with worker recycling
 - Zero-downtime deployments with `octane:reload`
 
-See [OCTANE.md](OCTANE.md) for detailed configuration and tuning guide.
+See [docs/OCTANE.md](docs/OCTANE.md) for detailed configuration and tuning guide.
 
 ## Environment Configuration
 
