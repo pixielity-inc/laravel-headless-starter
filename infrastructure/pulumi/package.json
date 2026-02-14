@@ -1,0 +1,59 @@
+{
+  "name": "laravel-kubernetes-infrastructure",
+  "version": "1.0.0",
+  "description": "Enterprise-grade Kubernetes infrastructure for Laravel with Pulumi",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "build:watch": "tsc --watch",
+    "clean": "rm -rf dist",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\"",
+    "type-check": "tsc --noEmit",
+    "validate": "pnpm lint && pnpm format:check && pnpm type-check",
+    "up": "pulumi up",
+    "up:yes": "pulumi up --yes",
+    "preview": "pulumi preview",
+    "preview:diff": "pulumi preview --diff",
+    "destroy": "pulumi destroy",
+    "destroy:yes": "pulumi destroy --yes",
+    "refresh": "pulumi refresh",
+    "stack:list": "pulumi stack ls",
+    "stack:output": "pulumi stack output",
+    "stack:local": "pulumi stack select dev",
+    "stack:staging": "pulumi stack select staging",
+    "stack:prod": "pulumi stack select production",
+    "config:get": "pulumi config",
+    "config:set": "pulumi config set"
+  },
+  "keywords": [
+    "kubernetes",
+    "laravel",
+    "pulumi",
+    "infrastructure",
+    "gitops"
+  ],
+  "author": "Pixielity Inc",
+  "license": "MIT",
+  "dependencies": {
+    "@pulumi/kubernetes": "^4.8.0",
+    "@pulumi/kubernetes-cert-manager": "^0.0.5",
+    "@pulumi/pulumi": "^3.100.0",
+    "@pulumi/random": "^4.16.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.4",
+    "tsc-alias": "^1.8.16",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "packageManager": "pnpm@10.15.1"
+}

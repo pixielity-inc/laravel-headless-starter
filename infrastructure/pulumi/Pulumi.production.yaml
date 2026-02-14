@@ -1,0 +1,204 @@
+config:
+  # Kubernetes Configuration
+  kubernetes:kubeconfig: ~/.kube/production-config
+  kubernetes:context: production-cluster
+
+  # Environment Settings
+  laravel:environment: production
+  laravel:debug: "false"
+  laravel:namespace: laravel-prod
+
+  # Application Configuration
+  laravel:appName: Laravel Headless Starter
+  laravel:appUrl: https://api.example.com
+  laravel:appKey:
+    secure: CHANGE_ME # Generate with: php artisan key:generate --show
+
+  # Scaling Configuration (Production - High Availability)
+  laravel:webReplicas: 3
+  laravel:webMinReplicas: 3
+  laravel:webMaxReplicas: 20
+  laravel:workerReplicas: 5
+  laravel:workerMinReplicas: 2
+  laravel:workerMaxReplicas: 50
+  laravel:reverbReplicas: 2
+  laravel:reverbMinReplicas: 2
+  laravel:reverbMaxReplicas: 10
+
+  # Resource Limits (Production - Optimized)
+  laravel:webMemoryLimit: 2Gi
+  laravel:webMemoryRequest: 1Gi
+  laravel:webCpuLimit: "2"
+  laravel:webCpuRequest: "1"
+  laravel:workerMemoryLimit: 1Gi
+  laravel:workerMemoryRequest: 512Mi
+  laravel:workerCpuLimit: "1"
+  laravel:workerCpuRequest: "0.5"
+
+  # ===========================================================================
+  # Unified Database Configuration
+  # ===========================================================================
+  database:engine: postgresql
+  database:version: "16"
+  database:extensions:
+    - uuid-ossp
+    - pg_trgm
+    - pg_stat_statements
+  database:enablePostGIS: false
+  database:enableTimescaleDB: false
+
+  # Database Configuration (Managed Service - RDS/Cloud SQL)
+  postgres:enabled: false # Use managed database
+  postgres:host: production-db.xxxxx.us-east-1.rds.amazonaws.com
+  postgres:port: "5432"
+  postgres:database: laravel_production
+  postgres:username: laravel_prod
+  postgres:password:
+    secure: CHANGE_ME # Use AWS Secrets Manager or equivalent
+
+  # ===========================================================================
+  # Unified Cache Configuration
+  # ===========================================================================
+  cache:engine: redis
+  cache:version: "7.4"
+  cache:persistence: true
+  cache:evictionPolicy: allkeys-lru
+
+  # Redis Configuration (Managed Service - ElastiCache/MemoryStore)
+  redis:enabled: false # Use managed Redis
+  redis:host: production-redis.xxxxx.cache.amazonaws.com
+  redis:port: "6379"
+  redis:version: "7.4"
+  redis:password:
+    secure: CHANGE_ME
+  redis:tls: true
+
+  # ===========================================================================
+  # Unified Queue Configuration
+  # ===========================================================================
+  queue:engine: kafka
+  queue:version: "3.8"
+  queue:managementUI: false
+  queue:kraftMode: true # Kafka without Zookeeper
+
+  # Kafka Configuration (Managed Service - MSK/Confluent Cloud)
+  kafka:enabled: false # Use managed Kafka
+  kafka:brokers: b-1.production.xxxxx.kafka.us-east-1.amazonaws.com:9092
+  kafka:version: "3.8"
+  kafka:saslMechanism: SCRAM-SHA-512
+  kafka:username: kafka_prod
+  kafka:password:
+    secure: CHANGE_ME
+
+  # RabbitMQ Configuration (Managed Service - Amazon MQ)
+  rabbitmq:enabled: false # Use managed RabbitMQ
+  rabbitmq:host: b-xxxxx.mq.us-east-1.amazonaws.com
+  rabbitmq:port: "5671"
+  rabbitmq:version: "3.13"
+  rabbitmq:username: rabbitmq_prod
+  rabbitmq:password:
+    secure: CHANGE_ME
+  rabbitmq:tls: true
+
+  # ===========================================================================
+  # Storage Configuration
+  # ===========================================================================
+  # S3 Configuration (AWS S3 / GCS / Azure Blob)
+  minio:enabled: false # Use cloud object storage
+  s3:bucket: laravel-production-assets
+  s3:region: us-east-1
+  s3:accessKey:
+    secure: CHANGE_ME
+  s3:secretKey:
+    secure: CHANGE_ME
+
+  # ===========================================================================
+  # Search Configuration
+  # ===========================================================================
+  # Meilisearch Configuration (Managed or Self-hosted)
+  meilisearch:enabled: true
+  meilisearch:host: https://meilisearch.example.com
+  meilisearch:masterKey:
+    secure: CHANGE_ME
+  meilisearch:replicas: 3
+
+  # Elasticsearch Configuration (Alternative - Managed Service)
+  elasticsearch:enabled: false
+  elasticsearch:host: https://elasticsearch.example.com
+  elasticsearch:username: elastic
+  elasticsearch:password:
+    secure: CHANGE_ME
+
+  # ===========================================================================
+  # Mail Configuration
+  # ===========================================================================
+  mailCatcher:tool: none
+  mailpit:enabled: false
+
+  # Mail Configuration (Production - SES/SendGrid/Postmark)
+  mail:driver: ses
+  mail:fromAddress: noreply@example.com
+  mail:fromName: Laravel Headless Starter
+
+  # ===========================================================================
+  # PHP Runtime Configuration
+  # ===========================================================================
+  phpRuntime:type: octane
+  phpRuntime:version: "8.3"
+  phpRuntime:octaneServer: frankenphp
+  phpRuntime:opcacheEnabled: true
+  phpRuntime:opcacheMemory: 256
+
+  # ===========================================================================
+  # Ingress Configuration
+  # ===========================================================================
+  ingress:enabled: true
+  ingress:className: nginx
+  ingress:host: api.example.com
+  ingress:tls: true
+  ingress:tlsSecretName: api-tls-cert
+  ingress:annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/rate-limit: "100"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+
+  # ===========================================================================
+  # Observability Configuration
+  # ===========================================================================
+  observability:prometheus: true
+  observability:grafana: true
+  observability:loki: true
+  observability:tempo: true
+  observability:alertmanager: true
+
+  # ===========================================================================
+  # Feature Flags
+  # ===========================================================================
+  features:hpa: true # Horizontal Pod Autoscaling
+  features:pdb: true # Pod Disruption Budgets
+  features:networkPolicies: true # Network isolation
+  features:podSecurityPolicies: true
+  features:resourceQuotas: true
+
+  # ===========================================================================
+  # Security Configuration
+  # ===========================================================================
+  security:podSecurityStandard: restricted
+  security:enableAppArmor: true
+  security:enableSeccomp: true
+  security:readOnlyRootFilesystem: true
+
+  # ===========================================================================
+  # Backup Configuration
+  # ===========================================================================
+  backup:enabled: true
+  backup:schedule: "0 2 * * *" # Daily at 2 AM
+  backup:retention: 30 # Keep 30 days
+
+  # ===========================================================================
+  # ArgoCD GitOps Configuration
+  # ===========================================================================
+  argocd:enabled: true
+  argocd:repoUrl: https://github.com/pixielity-inc/laravel-headless-starter
+  argocd:targetRevision: main
+  argocd:syncPolicy: automated
