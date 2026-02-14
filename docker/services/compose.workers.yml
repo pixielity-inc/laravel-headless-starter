@@ -1,0 +1,79 @@
+# ==============================================================================
+# Laravel Queue Workers & Scheduler
+# ==============================================================================
+# Background job processing and scheduled task execution
+#
+# Usage:
+#   docker-compose -f docker-compose.yml -f compose.workers.yml up -d
+#
+# Services:
+#   - queue-worker: Processes background jobs
+#   - scheduler: Runs scheduled tasks (cron jobs)
+# ==============================================================================
+
+services:
+  queue-worker:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: laravel-queue-worker
+    command: php artisan queue:work --tries=3 --timeout=90 --sleep=3 --max-jobs=1000
+    environment:
+      - APP_ENV=${APP_ENV:-production}
+      - APP_DEBUG=${APP_DEBUG:-false}
+      - DB_CONNECTION=${DB_CONNECTION:-sqlite}
+      - QUEUE_CONNECTION=${QUEUE_CONNECTION:-database}
+    volumes:
+      - ../storage:/app/storage
+      - ../database/database.sqlite:/app/database/database.sqlite
+    restart: unless-stopped
+    depends_on:
+      - app
+    networks:
+      - laravel
+    deploy:
+      replicas: ${QUEUE_WORKERS:-2}
+
+  scheduler:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: laravel-scheduler
+    command: >
+      sh -c "while true; do
+        php artisan schedule:run --verbose --no-interaction &
+        sleep 60
+      done"
+    environment:
+      - APP_ENV=${APP_ENV:-production}
+      - APP_DEBUG=${APP_DEBUG:-false}
+      - DB_CONNECTION=${DB_CONNECTION:-sqlite}
+    volumes:
+      - ../storage:/app/storage
+      - ../database/database.sqlite:/app/database/database.sqlite
+    restart: unless-stopped
+    depends_on:
+      - app
+    networks:
+      - laravel
+
+  # Optional: Horizon for Redis queue management (requires laravel/horizon)
+  # Uncomment if using Laravel Horizon
+  # horizon:
+  #   build:
+  #     context: ..
+  #     dockerfile: docker/Dockerfile
+  #   container_name: laravel-horizon
+  #   command: php artisan horizon
+  #   environment:
+  #     - APP_ENV=${APP_ENV:-production}
+  #     - APP_DEBUG=${APP_DEBUG:-false}
+  #     - QUEUE_CONNECTION=redis
+  #   volumes:
+  #     - ../storage:/app/storage
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - app
+  #     - redis
+  #   networks:
+  #     - laravel

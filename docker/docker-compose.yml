@@ -1,20 +1,38 @@
+# ==============================================================================
+# Laravel Headless Starter - Main Docker Compose
+# ==============================================================================
+# Base configuration with the Laravel application
+# Use with service-specific compose files for additional services
+#
+# Usage:
+#   docker-compose up -d
+#   docker-compose -f docker-compose.yml -f compose.redis.yml up -d
+# ==============================================================================
+
 services:
   app:
     build:
       context: ..
       dockerfile: docker/Dockerfile
+    container_name: laravel-app
     ports:
-      - "8000:8000"
+      - "${APP_PORT:-8000}:8000"
     environment:
-      - APP_ENV=production
-      - APP_DEBUG=false
-      - DB_CONNECTION=sqlite
+      - APP_ENV=${APP_ENV:-production}
+      - APP_DEBUG=${APP_DEBUG:-false}
+      - DB_CONNECTION=${DB_CONNECTION:-sqlite}
     volumes:
-      - ./storage:/app/storage
-      - ./database/database.sqlite:/app/database/database.sqlite
+      - ../storage:/app/storage
+      - ../database/database.sqlite:/app/database/database.sqlite
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/up"]
       interval: 30s
       timeout: 10s
       retries: 3
+    networks:
+      - laravel
+
+networks:
+  laravel:
+    driver: bridge
