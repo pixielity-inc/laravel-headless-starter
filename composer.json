@@ -14,6 +14,7 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^12.0",
+        "laravel/octane": "^2.13",
         "laravel/tinker": "^2.10.1"
     },
     "require-dev": {
@@ -50,7 +51,42 @@
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1 --timeout=0\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
+            "@php artisan octane:start --server=frankenphp --watch"
+        ],
+        "dev:traditional": [
+            "Composer\\Config::disableProcessTimeout",
+            "@php artisan serve"
+        ],
+        "dev:full": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185\" \"php artisan octane:start --server=frankenphp --watch\" \"php artisan queue:listen --tries=1 --timeout=0\" \"php artisan pail --timeout=0\" --names=octane,queue,logs --kill-others"
+        ],
+        "octane": [
+            "Composer\\Config::disableProcessTimeout",
+            "@php artisan octane:start --server=frankenphp --watch"
+        ],
+        "octane:prod": [
+            "@php artisan config:cache",
+            "@php artisan route:cache",
+            "@php artisan event:cache",
+            "@php artisan octane:start --server=frankenphp --host=0.0.0.0 --port=8000"
+        ],
+        "octane:reload": [
+            "@php artisan octane:reload"
+        ],
+        "octane:stop": [
+            "@php artisan octane:stop"
+        ],
+        "optimize": [
+            "@php artisan config:cache",
+            "@php artisan route:cache",
+            "@php artisan event:cache"
+        ],
+        "optimize:clear": [
+            "@php artisan config:clear",
+            "@php artisan route:clear",
+            "@php artisan event:clear",
+            "@php artisan cache:clear"
         ],
         "test": [
             "@php artisan config:clear --ansi",
