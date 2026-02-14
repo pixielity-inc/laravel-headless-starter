@@ -38,6 +38,13 @@ composer test
 vendor/bin/pint
 ```
 
+## Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+
+- `main` branch - Stable releases
+- `dev` branch - Active development
+
 ## License
 
 Open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
