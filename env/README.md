@@ -2,51 +2,96 @@
 
 This directory contains environment configuration templates for different deployment scenarios.
 
-## Available Environments
+## Quick Start
 
-### `.env.local` - Local Development
-For local development on your machine. Includes:
-- SQLite database for simplicity
-- File-based caching and sessions
-- Email logging (no actual sending)
-- Debug mode enabled
-- Octane with file watching
+**Standard Laravel approach - ONE active `.env` file:**
 
-**Setup:**
 ```bash
+# Local development
 cp env/.env.local .env
 php artisan key:generate
-php artisan migrate
-composer dev
-```
 
-### `.env.production` - Production Deployment
-For production servers. Optimized for:
-- MySQL/PostgreSQL database
-- Redis for caching and queues
-- Real email sending (SMTP/SES)
-- Debug mode disabled
-- Enhanced security settings
-- Optimized Octane configuration
+# Docker development  
+cp env/.env.local .env
+# Then update DB_HOST=postgres, REDIS_HOST=redis (see .env.docker.example)
 
-**Setup:**
-```bash
+# Production
 cp env/.env.production .env
-# Edit .env with your production credentials
-php artisan key:generate
-php artisan migrate --force
-composer octane:prod
+# Then configure with real credentials
 ```
 
-### `.env.testing` - Automated Testing
-For running PHPUnit/Pest tests. Features:
-- In-memory SQLite database
-- Array-based cache and sessions
-- Mocked email sending
-- Fast bcrypt rounds
-- Minimal logging
+## Available Environment Files
 
-**Note:** Laravel automatically uses `.env.testing` when running tests.
+### `.env` - Active Environment (gitignored)
+Your actual environment file. Copy from a template and customize.
+
+### `.env.example` - Universal Template
+Works for both local and Docker. Contains all variables with smart defaults and comments showing local vs Docker values.
+
+### `.env.local` - Local Development Template
+Pre-configured for local development:
+- SQLite database
+- File-based caching
+- Email logging
+- Debug mode enabled
+
+### `.env.production` - Production Template  
+Pre-configured for production:
+- PostgreSQL/MySQL database
+- Redis caching
+- Real email service
+- Debug mode disabled
+- Security optimized
+
+### `.env.testing` - Testing (auto-used by Laravel)
+Pre-configured for tests:
+- In-memory SQLite
+- Array cache/sessions
+- Mocked services
+
+### `.env.docker.example` - Docker Quick Reference
+Shows ONLY the variables you need to change for Docker (host names). Not a full env file - just a reference guide.
+
+## Docker Setup
+
+**No separate Docker env file needed!** Just update host names in your `.env`:
+
+```bash
+# 1. Start with local template
+cp env/.env.local .env
+
+# 2. Change these hosts to Docker service names:
+DB_HOST=postgres          # was: 127.0.0.1
+REDIS_HOST=redis          # was: 127.0.0.1  
+MAIL_HOST=mailpit         # was: 127.0.0.1
+REVERB_HOST=reverb        # was: localhost
+
+# 3. Start Docker
+docker-compose -f docker/docker-compose.full.yml up -d
+```
+
+See `env/.env.docker.example` for all Docker-specific values.
+
+## File Structure
+
+```
+env/
+├── .env                    # Active (gitignored, you create this)
+├── .env.example            # Universal template
+├── .env.local              # Local development template
+├── .env.production         # Production template
+├── .env.testing            # Testing template (auto-used)
+├── .env.docker.example     # Docker overrides reference
+└── README.md               # This file
+```
+
+## Why This Approach?
+
+✅ **No redundancy** - One `.env` file for all environments  
+✅ **Standard Laravel** - Follows Laravel conventions  
+✅ **Clear templates** - Each template for specific use case  
+✅ **Docker-friendly** - Just change host names, everything else same  
+✅ **Easy to maintain** - Update one template, not multiple files
 
 ## Security Best Practices
 
