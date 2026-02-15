@@ -1,0 +1,57 @@
+{
+    "version": 3,
+    "checkpoint": {
+        "stack": "organization/laravel-kubernetes/dev",
+        "latest": {
+            "manifest": {
+                "time": "2026-02-15T04:40:16.608524+04:00",
+                "magic": "22b7de8b0b797cfdc538c94a4e1b81eae77789956bbf6ad52b70e5ebbf1f68c0",
+                "version": "v3.220.0"
+            },
+            "secrets_providers": {
+                "type": "passphrase",
+                "state": {
+                    "salt": "v1:RGLY5mpI84Y=:v1:oxmMn829MNdktukG:eq+kxauGwdoPRMbFYxWy1Zz1zkMFVw=="
+                }
+            },
+            "resources": [
+                {
+                    "urn": "urn:pulumi:dev::laravel-kubernetes::pulumi:pulumi:Stack::laravel-kubernetes-dev",
+                    "custom": false,
+                    "type": "pulumi:pulumi:Stack",
+                    "created": "2026-02-14T23:51:15.702625Z",
+                    "modified": "2026-02-14T23:51:15.702625Z",
+                    "sourcePosition": "project:///../../node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/runtime/stack.ts#37,19",
+                    "stackTrace": [
+                        {
+                            "sourcePosition": "project:///../../node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/runtime/stack.ts#37,19"
+                        },
+                        {
+                            "sourcePosition": "project:///../../node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/cmd/run/run.ts#603,38"
+                        }
+                    ]
+                },
+                {
+                    "urn": "urn:pulumi:dev::laravel-kubernetes::pulumi:providers:kubernetes::default_4_25_0",
+                    "custom": true,
+                    "id": "a45242a2-09d8-477f-bb00-d911c5e65a63",
+                    "type": "pulumi:providers:kubernetes",
+                    "inputs": {
+                        "__internal": {},
+                        "context": "orbstack",
+                        "kubeconfig": "~/.kube/config",
+                        "version": "4.25.0"
+                    },
+                    "outputs": {
+                        "context": "orbstack",
+                        "kubeconfig": "~/.kube/config",
+                        "version": "4.25.0"
+                    },
+                    "created": "2026-02-14T23:51:16.16025Z",
+                    "modified": "2026-02-14T23:51:16.16025Z"
+                }
+            ],
+            "metadata": {}
+        }
+    }
+}

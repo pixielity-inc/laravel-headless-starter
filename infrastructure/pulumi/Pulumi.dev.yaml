@@ -17,29 +17,24 @@ config:
   # Kubernetes Configuration
   kubernetes:kubeconfig: ~/.kube/config
   kubernetes:context: orbstack # or docker-desktop
-
   # Environment Settings
   laravel:environment: local
   laravel:debug: "true"
   laravel:namespace: laravel-dev
-
   # Application Configuration
   laravel:appName: Laravel Headless Starter
   laravel:appUrl: http://laravel.k8s.orb.local
   laravel:appKey:
     secure: v1:7D7CaGuktoME5d/l:MoFJA20pBvyJtIGmOwo7RFTdYO5iRStFLJJTQvHD9Alq/q9vCLkox1Gtz+YWFx2mlnp2m7VSPnT5Lu1ZVmKX
-
   # Scaling Configuration (Local - Minimal)
-  laravel:webReplicas: 1
-  laravel:workerReplicas: 1
-  laravel:reverbReplicas: 1
-
+  laravel:webReplicas: "1"
+  laravel:workerReplicas: "1"
+  laravel:reverbReplicas: "1"
   # Resource Limits (Local - Conservative)
   laravel:webMemoryLimit: 512Mi
   laravel:webCpuLimit: "0.5"
   laravel:workerMemoryLimit: 256Mi
   laravel:workerCpuLimit: "0.25"
-
   # ===========================================================================
   # Unified Database Configuration
   # ===========================================================================
@@ -48,22 +43,20 @@ config:
   database:extensions:
     - postgis
     - uuid-ossp
-  database:enablePostGIS: false
-  database:enableTimescaleDB: false
-
+  database:enablePostGIS: "false"
+  database:enableTimescaleDB: "false"
   # PostgreSQL Specific Configuration
-  postgres:enabled: true
+  postgres:enabled: "true"
   postgres:host: postgres
   postgres:port: "5432"
   postgres:database: laravel
   postgres:username: laravel
   postgres:password:
     secure: v1:ckcDv1cTT6yVf16+:Y0BNJI59fNBOz5sajJI5rAa696iAqS9X3ZF9
-  postgres:replicas: 1
+  postgres:replicas: "1"
   postgres:storageSize: 5Gi
-
   # MySQL Configuration (if using MySQL)
-  mysql:enabled: false
+  mysql:enabled: "false"
   mysql:host: mysql
   mysql:port: "3306"
   mysql:database: laravel
@@ -71,11 +64,10 @@ config:
   mysql:password:
     secure: v1:MOkguPscFeSZmc6B:xf4gxdzt7wFf6DL8LbpCMxQ5VTtfUpyS
   mysql:version: "8.4"
-  mysql:replicas: 1
+  mysql:replicas: "1"
   mysql:storageSize: 5Gi
-
   # MariaDB Configuration (if using MariaDB)
-  mariadb:enabled: false
+  mariadb:enabled: "false"
   mariadb:host: mariadb
   mariadb:port: "3306"
   mariadb:database: laravel
@@ -83,51 +75,45 @@ config:
   mariadb:password:
     secure: v1:JpGkESmYbq3GHiEG:ujRsOl0StGBpTptxgCIRq28Jpnf/shfg+a4=
   mariadb:version: "11.4"
-  mariadb:replicas: 1
+  mariadb:replicas: "1"
   mariadb:storageSize: 5Gi
-
   # ===========================================================================
   # Unified Cache Configuration
   # ===========================================================================
   cache:engine: redis # redis, memcached, valkey
   cache:version: "7.4"
-  cache:persistence: false # Disable for local
+  cache:persistence: "false" # Disable for local
   cache:evictionPolicy: allkeys-lru
-
   # Redis Specific Configuration
-  redis:enabled: true
+  redis:enabled: "true"
   redis:host: redis
   redis:port: "6379"
   redis:version: "7.4"
   redis:password:
     secure: v1:+HgNS5W4OZXCHC6c:pndfTjOauPuw7cf+iIwT6kJodm4Y5Ra4
-  redis:replicas: 1
-  redis:tls: false
-
+  redis:replicas: "1"
+  redis:tls: "false"
   # Memcached Configuration (if using Memcached)
-  memcached:enabled: false
+  memcached:enabled: "false"
   memcached:host: memcached
   memcached:port: "11211"
   memcached:version: "1.6"
-  memcached:replicas: 1
-
+  memcached:replicas: "1"
   # ===========================================================================
   # Unified Queue Configuration
   # ===========================================================================
   queue:engine: rabbitmq # rabbitmq, kafka, beanstalkd, redis, sqs
   queue:version: "3.13"
-  queue:managementUI: true # For RabbitMQ
-  queue:kraftMode: true # For Kafka (no Zookeeper)
-
+  queue:managementUI: "true" # For RabbitMQ
+  queue:kraftMode: "true" # For Kafka (no Zookeeper)
   # Kafka Configuration
-  kafka:enabled: false
+  kafka:enabled: "false"
   kafka:brokers: kafka:9092
   kafka:version: "3.8"
-  kafka:replicas: 1
+  kafka:replicas: "1"
   kafka:storageSize: 5Gi
-
   # RabbitMQ Configuration
-  rabbitmq:enabled: true
+  rabbitmq:enabled: "true"
   rabbitmq:host: rabbitmq
   rabbitmq:port: "5672"
   rabbitmq:version: "3.13-management"
@@ -135,93 +121,94 @@ config:
   rabbitmq:username: guest
   rabbitmq:password:
     secure: v1:lT2kL5iLK08PNQc7:08bhbFIZAMi3CZVmjngP3lNGAjamPOJ9jGx5
-  rabbitmq:replicas: 1
-  rabbitmq:tls: false
-
+  rabbitmq:replicas: "1"
+  rabbitmq:tls: "false"
   # Beanstalkd Configuration (if using Beanstalkd)
-  beanstalkd:enabled: false
+  beanstalkd:enabled: "false"
   beanstalkd:host: beanstalkd
   beanstalkd:port: "11300"
   beanstalkd:version: latest
-  beanstalkd:replicas: 1
-
+  beanstalkd:replicas: "1"
   # ===========================================================================
   # Storage Configuration
   # ===========================================================================
   # MinIO Configuration (S3-compatible storage)
-  minio:enabled: true
+  minio:enabled: "true"
   minio:endpoint: http://minio:9000
   minio:accessKey: minioadmin
   minio:secretKey:
     secure: v1:jsIwM1xmfWBckBCw:zn8cJ+qqCZF53f5Gw77ua2j5GaBA7QJWyKU=
   minio:bucket: laravel
-  minio:replicas: 1
+  minio:replicas: "1"
   minio:storageSize: 10Gi
-
   # S3 Configuration (if using cloud storage)
   s3:bucket: laravel-dev-assets
   s3:region: us-east-1
-
   # ===========================================================================
   # Search Configuration
   # ===========================================================================
   # Meilisearch Configuration
-  meilisearch:enabled: true
+  meilisearch:enabled: "true"
   meilisearch:host: http://meilisearch:7700
   meilisearch:masterKey:
-    secure: v1:tu1byTHQGiT1P2II:ZfdQdZalWRr6aOMLwVQsN0SOgqHhYKpI6yiNTYqRaiZOGQXSqBUCcpVlJsjA9OMkZFqEqj5I10YG/u8=
-  meilisearch:replicas: 1
-
+    secure: v1:2JiGNLrlA88eFpeJ:+Pof8KV+ZfUzCEBXu4JcqFuRzWKLHNUIklXksq+s7khHKyRtKL1IZ+4sQtcG5CRzaR0ud0jOfNXO6wWt
+  meilisearch:replicas: "1"
   # Elasticsearch Configuration (Alternative to Meilisearch)
-  elasticsearch:enabled: false
+  elasticsearch:enabled: "false"
   elasticsearch:host: http://elasticsearch:9200
-  elasticsearch:replicas: 1
-
+  elasticsearch:replicas: "1"
   # ===========================================================================
   # Mail Catcher Configuration
   # ===========================================================================
   mailCatcher:tool: mailpit # mailpit, mailhog, mailtrap, none
   mailCatcher:version: latest
-
   # Mailpit Configuration (Local email testing)
-  mailpit:enabled: true
+  mailpit:enabled: "true"
   mailpit:smtpPort: "1025"
   mailpit:uiPort: "8025"
-
   # ===========================================================================
   # PHP Runtime Configuration
   # ===========================================================================
   phpRuntime:type: octane # octane, fpm, cli
   phpRuntime:version: "8.3"
   phpRuntime:octaneServer: frankenphp # frankenphp, swoole, roadrunner
-  phpRuntime:opcacheEnabled: false # Disable for local (easier debugging)
-  phpRuntime:opcacheMemory: 128
-
+  phpRuntime:opcacheEnabled: "false" # Disable for local (easier debugging)
+  phpRuntime:opcacheMemory: "128"
   # ===========================================================================
   # Ingress Configuration (OrbStack)
   # ===========================================================================
   # OrbStack provides *.k8s.orb.local wildcard domain
   # All services accessible at: <service-name>.k8s.orb.local
-  ingress:enabled: true
+  ingress:enabled: "true"
   ingress:className: nginx
   ingress:host: laravel.k8s.orb.local
-  ingress:tls: false
-
+  ingress:tls: "false"
   # ===========================================================================
   # Observability Configuration
   # ===========================================================================
-  observability:prometheus: false # Disable for local to save resources
-  observability:grafana: false
-  observability:loki: false
-  observability:tempo: false
-  observability:alertmanager: false
-
+  observability:prometheus: "false" # Disable for local to save resources
+  observability:grafana: "false"
+  observability:loki: "false"
+  observability:tempo: "false"
+  observability:alertmanager: "false"
+  # ===========================================================================
+  # GitOps - ArgoCD Configuration
+  # ===========================================================================
+  argocd:enabled: "true"
+  argocd:version: "7.7.11"
+  argocd:host: argocd.k8s.orb.local
+  argocd:adminPassword:
+    secure: v1:no2KRmzygPfkWfI9:dXJANaRv4B/iH0crawCqpiyHIeoIpmXaoG5hepU6wAtkVhP0TwTWvg== # Will be set during deployment
+  argocd:enableIngress: "true"
+  argocd:ingressClassName: nginx
+  argocd:enableSSO: "false"
+  argocd:replicas: "1"
   # ===========================================================================
   # Feature Flags
   # ===========================================================================
-  features:hpa: false # Disable HPA for local
-  features:pdb: false # Disable PodDisruptionBudget for local
-  features:networkPolicies: false # Disable for easier local debugging
-  features:podSecurityPolicies: false
-  features:resourceQuotas: false
+  features:hpa: "false" # Disable HPA for local
+  features:pdb: "false" # Disable PodDisruptionBudget for local
+  features:networkPolicies: "false" # Disable for easier local debugging
+  features:podSecurityPolicies: "false"
+  features:resourceQuotas: "false"
 encryptionsalt: v1:RGLY5mpI84Y=:v1:oxmMn829MNdktukG:eq+kxauGwdoPRMbFYxWy1Zz1zkMFVw==

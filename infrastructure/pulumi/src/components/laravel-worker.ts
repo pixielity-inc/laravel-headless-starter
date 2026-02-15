@@ -241,7 +241,7 @@ export function createLaravelWorker(
                   valueFrom: {
                     secretKeyRef: {
                       name: 'rabbitmq-credentials',
-                      key: 'password',
+                      key: 'rabbitmq-password',
                     },
                   },
                 },

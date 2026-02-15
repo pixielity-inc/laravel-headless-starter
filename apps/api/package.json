@@ -16,8 +16,5 @@
     "clean": "php artisan optimize:clear && rm -rf .phpunit.cache .phpstan.cache",
     "cleanup": "rm -rf vendor node_modules .turbo .phpunit.cache .phpstan.cache bootstrap/cache/*.php public/build public/hot composer.lock pnpm-lock.yaml package-lock.json yarn.lock",
     "deploy": "php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan migrate --force"
-  },
-  "devDependencies": {
-    "@types/node": "^25.2.3"
   }
 }

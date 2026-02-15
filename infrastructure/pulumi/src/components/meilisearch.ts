@@ -162,7 +162,7 @@ export function createMeilisearch(config: Config, namespace: string): Meilisearc
               env: [
                 {
                   name: 'MEILI_ENV',
-                  value: 'production',
+                  value: stack === 'production' ? 'production' : 'development',
                 },
                 ...(searchConfig.masterKey
                   ? [

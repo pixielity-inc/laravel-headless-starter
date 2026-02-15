@@ -42,3 +42,7 @@ export { createIngress } from './ingress';
 
 // Observability Components
 export { createObservability } from './observability';
+
+// GitOps Components
+export { createArgoCD, getArgoCDConfig } from './argocd';
+export type { ArgoCDConfig, ArgoCDResources } from './argocd';

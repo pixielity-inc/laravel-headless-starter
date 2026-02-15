@@ -4,7 +4,8 @@
     "private": true,
     "description": "Laravel PHP Monorepo with Turborepo",
     "scripts": {
-        "postinstall": "turbo run composer:install",
+        "postinstall": "command -v turbo >/dev/null 2>&1 && turbo run composer:install || echo 'Turbo not found, skipping composer:install. Run: pnpm run composer:install'",
+        "prepare": "turbo run composer:install",
         "dev": "turbo run dev",
         "build": "turbo run build",
         "start": "turbo run start",
@@ -20,14 +21,14 @@
         "refactor": "turbo run refactor",
         "refactor:dry": "turbo run refactor:dry",
         "clean": "turbo run clean",
-        "cleanup": "turbo run cleanup",
+        "cleanup": "turbo run cleanup && rm -rf node_modules .turbo pnpm-lock.yaml && find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && find . -name '.turbo' -type d -prune -exec rm -rf '{}' +",
         "setup": "turbo run setup"
     },
     "devDependencies": {
-        "prettier": "^3.7.4",
-        "turbo": "2.5.6"
+        "prettier": "^3.8.1",
+        "turbo": "2.8.9"
     },
-    "packageManager": "pnpm@10.15.1",
+    "packageManager": "pnpm@10.29.3",
     "engines": {
         "node": ">=18",
         "pnpm": ">=9.0.0"

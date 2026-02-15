@@ -28,6 +28,8 @@ import {
   createMailpit,
   createIngress,
   createObservability,
+  createArgoCD,
+  getArgoCDConfig,
 } from './components';
 import { createNamespace, generateLabels } from './utils';
 
@@ -191,6 +193,20 @@ pulumi.log.info('Creating observability stack...');
 const observability = createObservability(config, namespace);
 
 // ============================================================================
+// GitOps - ArgoCD
+// ============================================================================
+
+pulumi.log.info('Creating GitOps stack...');
+
+// ArgoCD for GitOps continuous delivery
+const argocdConfig = getArgoCDConfig(new pulumi.Config());
+const argocd = createArgoCD(argocdConfig, labels);
+
+if (argocdConfig.enabled) {
+  pulumi.log.info('✓ ArgoCD configured');
+}
+
+// ============================================================================
 // Exports
 // ============================================================================
 
@@ -232,6 +248,11 @@ export const prometheusService = observability.prometheusService?.metadata.name;
 export const grafanaService = observability.grafanaService?.metadata.name;
 // export const lokiService = observability.lokiService?.metadata.name; // Disabled in dev
 
+// GitOps
+export const argocdNamespace = argocd.namespace?.metadata.name;
+export const argocdRelease = argocd.release?.status.name;
+export const argocdHost = argocdConfig.enabled ? argocdConfig.host : undefined;
+
 // Application URL
 export const appUrl = config.getLaravelConfig().appUrl;
 
@@ -269,4 +290,5 @@ pulumi.log.info(`  - Ingress: ${ingress.ingress ? '✓' : '✗'}`);
 pulumi.log.info(`  - Prometheus: ${observability.prometheusDeployment ? '✓' : '✗'}`);
 pulumi.log.info(`  - Grafana: ${observability.grafanaDeployment ? '✓' : '✗'}`);
 pulumi.log.info(`  - Loki: ${observability.lokiDeployment ? '✓' : '✗'}`);
+pulumi.log.info(`  - ArgoCD: ${argocd.release ? '✓' : '✗'}`);
 pulumi.log.info('='.repeat(80));

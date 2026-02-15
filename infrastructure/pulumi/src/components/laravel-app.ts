@@ -245,7 +245,7 @@ export function createLaravelApp(
                   valueFrom: {
                     secretKeyRef: {
                       name: 'rabbitmq-credentials',
-                      key: 'password',
+                      key: 'rabbitmq-password',
                     },
                   },
                 },
