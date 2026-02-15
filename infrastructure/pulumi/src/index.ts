@@ -162,8 +162,12 @@ if (mailpitConfig) {
 pulumi.log.info('Creating Laravel application components...');
 
 // Docker image for Laravel (from config or default)
-// In production, this would come from a container registry
-const laravelImage = 'laravel:latest';
+// For local development: Build the image first with:
+//   cd apps/api && docker build -f docker/Dockerfile -t laravel:latest .
+// For production: Use your container registry
+//   e.g., ghcr.io/your-org/laravel:v1.0.0
+const pulumiConfig = new pulumi.Config();
+const laravelImage = pulumiConfig.get('laravel:image') || 'dunglas/frankenphp:php8.3';
 
 // Web Application
 const laravelApp = createLaravelApp(config, namespace, laravelImage);

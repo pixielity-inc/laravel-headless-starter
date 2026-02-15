@@ -173,37 +173,7 @@ export function createLaravelReverb(
                   name: 'APP_KEY',
                   value: laravelConfig.appKey,
                 },
-                // Database
-                {
-                  name: 'DB_CONNECTION',
-                  value: 'pgsql',
-                },
-                {
-                  name: 'DB_HOST',
-                  value: 'postgres',
-                },
-                {
-                  name: 'DB_PORT',
-                  value: '5432',
-                },
-                {
-                  name: 'DB_DATABASE',
-                  value: 'laravel',
-                },
-                {
-                  name: 'DB_USERNAME',
-                  value: 'laravel',
-                },
-                {
-                  name: 'DB_PASSWORD',
-                  valueFrom: {
-                    secretKeyRef: {
-                      name: 'postgres-credentials',
-                      key: 'postgres-password',
-                    },
-                  },
-                },
-                // Cache
+                // Cache (Redis for Reverb scaling)
                 {
                   name: 'CACHE_DRIVER',
                   value: 'redis',
