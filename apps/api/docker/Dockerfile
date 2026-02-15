@@ -39,7 +39,7 @@ RUN pecl install rdkafka && \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Set working directory
-WORKDIR /app
+WORKDIR /var/www/html
 
 # Copy application files
 COPY . .
@@ -48,7 +48,7 @@ COPY . .
 RUN composer install --optimize-autoloader --no-interaction
 
 # Set permissions
-RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Expose port
 EXPOSE 8000
