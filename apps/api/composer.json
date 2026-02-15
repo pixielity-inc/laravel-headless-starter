@@ -1,161 +1,177 @@
 {
-    "$schema": "https://getcomposer.org/schema.json",
-    "name": "pixielity/laravel-headless-starter",
-    "type": "project",
-    "description": "A headless Laravel starter template for building modern APIs.",
-    "keywords": [
-        "laravel",
-        "headless",
-        "api",
-        "starter",
-        "template"
+  "$schema": "https://getcomposer.org/schema.json",
+  "name": "pixielity/laravel-headless-starter",
+  "type": "project",
+  "description": "A headless Laravel starter template for building modern APIs.",
+  "keywords": [
+    "laravel",
+    "headless",
+    "api",
+    "starter",
+    "template"
+  ],
+  "license": "MIT",
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../../packages/*",
+      "options": {
+        "symlink": true
+      }
+    },
+    {
+      "type": "path",
+      "url": "../../packages/*/*",
+      "options": {
+        "symlink": true
+      }
+    },
+    {
+      "type": "path",
+      "url": "../../packages/*/*/*",
+      "options": {
+        "symlink": true
+      }
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "laravel/framework": "^12.0",
+    "laravel/octane": "^2.13",
+    "laravel/reverb": "^1.7",
+    "laravel/tinker": "^2.10.1",
+    "pixielity/laravel-framework": "*",
+    "pixielity/laravel-foundation": "*"
+  },
+  "require-dev": {
+    "fakerphp/faker": "^1.23",
+    "laravel/boost": "^2.0",
+    "laravel/pail": "^1.2.2",
+    "laravel/pint": "^1.24",
+    "laravel/sail": "^1.41",
+    "mockery/mockery": "^1.6",
+    "nunomaduro/collision": "^8.6",
+    "pestphp/pest": "^4.3",
+    "pestphp/pest-plugin-laravel": "^4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "setup": [
+      "composer install",
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+      "bin/artisan key:generate",
+      "bin/artisan migrate --force",
+      "npm install",
+      "npm run build"
     ],
-    "license": "MIT",
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../../packages/src/*"
-        },
-        {
-            "type": "path",
-            "url": "../../packages/src/**"
-        }
+    "docker:up": [
+      "docker-compose -f docker/docker-compose.yml up -d"
     ],
-    "require": {
-        "php": "^8.2",
-        "laravel/framework": "^12.0",
-        "laravel/octane": "^2.13",
-        "laravel/reverb": "^1.7",
-        "laravel/tinker": "^2.10.1"
-    },
-    "require-dev": {
-        "fakerphp/faker": "^1.23",
-        "laravel/boost": "^2.0",
-        "laravel/pail": "^1.2.2",
-        "laravel/pint": "^1.24",
-        "laravel/sail": "^1.41",
-        "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.6",
-        "pestphp/pest": "^4.3",
-        "pestphp/pest-plugin-laravel": "^4.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "App\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
-    "scripts": {
-        "setup": [
-            "composer install",
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-            "bin/artisan key:generate",
-            "bin/artisan migrate --force",
-            "npm install",
-            "npm run build"
-        ],
-        "docker:up": [
-            "docker-compose -f docker/docker-compose.yml up -d"
-        ],
-        "docker:down": [
-            "docker-compose -f docker/docker-compose.yml down"
-        ],
-        "docker:restart": [
-            "docker-compose -f docker/docker-compose.yml restart"
-        ],
-        "docker:logs": [
-            "docker-compose -f docker/docker-compose.yml logs -f"
-        ],
-        "docker:ps": [
-            "docker-compose -f docker/docker-compose.yml ps"
-        ],
-        "docker:build": [
-            "docker-compose -f docker/compose.app.yml build --no-cache app"
-        ],
-        "docker:clean": [
-            "docker-compose -f docker/docker-compose.yml down -v --remove-orphans"
-        ],
-        "dev": [
-            "Composer\\Config::disableProcessTimeout",
-            "bin/artisan octane:start --server=frankenphp --watch"
-        ],
-        "dev:traditional": [
-            "Composer\\Config::disableProcessTimeout",
-            "bin/artisan serve"
-        ],
-        "dev:full": [
-            "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185\" \"bin/artisan octane:start --server=frankenphp --watch\" \"bin/artisan queue:listen --tries=1 --timeout=0\" \"bin/artisan pail --timeout=0\" --names=octane,queue,logs --kill-others"
-        ],
-        "octane": [
-            "Composer\\Config::disableProcessTimeout",
-            "bin/artisan octane:start --server=frankenphp --watch"
-        ],
-        "octane:prod": [
-            "bin/artisan config:cache",
-            "bin/artisan route:cache",
-            "bin/artisan event:cache",
-            "bin/artisan octane:start ----server=frankenphp --host=0.0.0.0 --port=8000"
-        ],
-        "octane:reload": [
-            "bin/artisan octane:reload"
-        ],
-        "octane:stop": [
-            "bin/artisan octane:stop"
-        ],
-        "optimize": [
-            "bin/artisan config:cache",
-            "bin/artisan route:cache",
-            "bin/artisan event:cache"
-        ],
-        "optimize:clear": [
-            "bin/artisan config:clear",
-            "bin/artisan route:clear",
-            "bin/artisan event:clear",
-            "bin/artisan cache:clear"
-        ],
-        "test": [
-            "bin/artisan config:clear --ansi",
-            "bin/artisan test"
-        ],
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "bin/artisan package:discover --ansi"
-        ],
-        "post-update-cmd": [
-            "bin/artisan vendor:publish --tag=laravel-assets --ansi --force",
-            "bin/artisan boost:update --ansi"
-        ],
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "bin/artisan key:generate --ansi",
-            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
-            "bin/artisan migrate --graceful --ansi"
-        ],
-        "pre-package-uninstall": [
-            "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
-        ]
-    },
-    "extra": {
-        "laravel": {
-            "dont-discover": []
-        }
-    },
-    "config": {
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "allow-plugins": {
-            "pestphp/pest-plugin": true,
-            "php-http/discovery": true
-        }
-    },
-    "minimum-stability": "stable",
-    "prefer-stable": true
+    "docker:down": [
+      "docker-compose -f docker/docker-compose.yml down"
+    ],
+    "docker:restart": [
+      "docker-compose -f docker/docker-compose.yml restart"
+    ],
+    "docker:logs": [
+      "docker-compose -f docker/docker-compose.yml logs -f"
+    ],
+    "docker:ps": [
+      "docker-compose -f docker/docker-compose.yml ps"
+    ],
+    "docker:build": [
+      "docker-compose -f docker/compose.app.yml build --no-cache app"
+    ],
+    "docker:clean": [
+      "docker-compose -f docker/docker-compose.yml down -v --remove-orphans"
+    ],
+    "dev": [
+      "Composer\\Config::disableProcessTimeout",
+      "bin/artisan octane:start --server=frankenphp --watch"
+    ],
+    "dev:traditional": [
+      "Composer\\Config::disableProcessTimeout",
+      "bin/artisan serve"
+    ],
+    "dev:full": [
+      "Composer\\Config::disableProcessTimeout",
+      "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185\" \"bin/artisan octane:start --server=frankenphp --watch\" \"bin/artisan queue:listen --tries=1 --timeout=0\" \"bin/artisan pail --timeout=0\" --names=octane,queue,logs --kill-others"
+    ],
+    "octane": [
+      "Composer\\Config::disableProcessTimeout",
+      "bin/artisan octane:start --server=frankenphp --watch"
+    ],
+    "octane:prod": [
+      "bin/artisan config:cache",
+      "bin/artisan route:cache",
+      "bin/artisan event:cache",
+      "bin/artisan octane:start ----server=frankenphp --host=0.0.0.0 --port=8000"
+    ],
+    "octane:reload": [
+      "bin/artisan octane:reload"
+    ],
+    "octane:stop": [
+      "bin/artisan octane:stop"
+    ],
+    "optimize": [
+      "bin/artisan config:cache",
+      "bin/artisan route:cache",
+      "bin/artisan event:cache"
+    ],
+    "optimize:clear": [
+      "bin/artisan config:clear",
+      "bin/artisan route:clear",
+      "bin/artisan event:clear",
+      "bin/artisan cache:clear"
+    ],
+    "test": [
+      "bin/artisan config:clear --ansi",
+      "bin/artisan test"
+    ],
+    "post-autoload-dump": [
+      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+      "bin/artisan package:discover --ansi"
+    ],
+    "post-update-cmd": [
+      "bin/artisan vendor:publish --tag=laravel-assets --ansi --force",
+      "bin/artisan boost:update --ansi"
+    ],
+    "post-root-package-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+    "post-create-project-cmd": [
+      "bin/artisan key:generate --ansi",
+      "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+      "bin/artisan migrate --graceful --ansi"
+    ],
+    "pre-package-uninstall": [
+      "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
+    ]
+  },
+  "extra": {
+    "laravel": {
+      "dont-discover": []
+    }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "allow-plugins": {
+      "olvlvl/composer-attribute-collector": true,
+      "pestphp/pest-plugin": true,
+      "php-http/discovery": true
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
