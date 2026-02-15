@@ -1,5 +1,39 @@
 {
-	"devDependencies": {
-		"@types/node": "^25.2.3"
-	}
+    "name": "laravel-monorepo",
+    "version": "1.0.0",
+    "private": true,
+    "description": "Laravel PHP Monorepo with Turborepo",
+    "scripts": {
+        "postinstall": "turbo run composer:install",
+        "dev": "turbo run dev",
+        "build": "turbo run build",
+        "start": "turbo run start",
+        "test": "turbo run test",
+        "test:unit": "turbo run test:unit",
+        "test:feature": "turbo run test:feature",
+        "test:coverage": "turbo run test -- --coverage",
+        "lint": "turbo run lint",
+        "lint:fix": "turbo run lint -- --fix",
+        "format": "turbo run format",
+        "format:check": "turbo run format -- --check",
+        "typecheck": "turbo run typecheck",
+        "refactor": "turbo run refactor",
+        "refactor:dry": "turbo run refactor:dry",
+        "clean": "turbo run clean",
+        "cleanup": "turbo run cleanup",
+        "setup": "turbo run setup"
+    },
+    "devDependencies": {
+        "prettier": "^3.7.4",
+        "turbo": "2.5.6"
+    },
+    "packageManager": "pnpm@10.0.0",
+    "engines": {
+        "node": ">=18",
+        "pnpm": ">=9.0.0"
+    },
+    "workspaces": [
+        "apps/*",
+        "packages/*"
+    ]
 }
