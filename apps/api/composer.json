@@ -11,6 +11,16 @@
         "template"
     ],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../../packages/src/*"
+        },
+        {
+            "type": "path",
+            "url": "../../packages/src/**"
+        }
+    ],
     "require": {
         "php": "^8.2",
         "laravel/framework": "^12.0",
@@ -31,9 +41,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "App\\": "src/"
         }
     },
     "autoload-dev": {
@@ -45,69 +53,90 @@
         "setup": [
             "composer install",
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-            "@php artisan key:generate",
-            "@php artisan migrate --force",
+            "bin/artisan key:generate",
+            "bin/artisan migrate --force",
             "npm install",
             "npm run build"
         ],
+        "docker:up": [
+            "docker-compose -f docker/docker-compose.yml up -d"
+        ],
+        "docker:down": [
+            "docker-compose -f docker/docker-compose.yml down"
+        ],
+        "docker:restart": [
+            "docker-compose -f docker/docker-compose.yml restart"
+        ],
+        "docker:logs": [
+            "docker-compose -f docker/docker-compose.yml logs -f"
+        ],
+        "docker:ps": [
+            "docker-compose -f docker/docker-compose.yml ps"
+        ],
+        "docker:build": [
+            "docker-compose -f docker/compose.app.yml build --no-cache app"
+        ],
+        "docker:clean": [
+            "docker-compose -f docker/docker-compose.yml down -v --remove-orphans"
+        ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
-            "@php artisan octane:start --server=frankenphp --watch"
+            "bin/artisan octane:start --server=frankenphp --watch"
         ],
         "dev:traditional": [
             "Composer\\Config::disableProcessTimeout",
-            "@php artisan serve"
+            "bin/artisan serve"
         ],
         "dev:full": [
             "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185\" \"php artisan octane:start --server=frankenphp --watch\" \"php artisan queue:listen --tries=1 --timeout=0\" \"php artisan pail --timeout=0\" --names=octane,queue,logs --kill-others"
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185\" \"bin/artisan octane:start --server=frankenphp --watch\" \"bin/artisan queue:listen --tries=1 --timeout=0\" \"bin/artisan pail --timeout=0\" --names=octane,queue,logs --kill-others"
         ],
         "octane": [
             "Composer\\Config::disableProcessTimeout",
-            "@php artisan octane:start --server=frankenphp --watch"
+            "bin/artisan octane:start --server=frankenphp --watch"
         ],
         "octane:prod": [
-            "@php artisan config:cache",
-            "@php artisan route:cache",
-            "@php artisan event:cache",
-            "@php artisan octane:start --server=frankenphp --host=0.0.0.0 --port=8000"
+            "bin/artisan config:cache",
+            "bin/artisan route:cache",
+            "bin/artisan event:cache",
+            "bin/artisan octane:start ----server=frankenphp --host=0.0.0.0 --port=8000"
         ],
         "octane:reload": [
-            "@php artisan octane:reload"
+            "bin/artisan octane:reload"
         ],
         "octane:stop": [
-            "@php artisan octane:stop"
+            "bin/artisan octane:stop"
         ],
         "optimize": [
-            "@php artisan config:cache",
-            "@php artisan route:cache",
-            "@php artisan event:cache"
+            "bin/artisan config:cache",
+            "bin/artisan route:cache",
+            "bin/artisan event:cache"
         ],
         "optimize:clear": [
-            "@php artisan config:clear",
-            "@php artisan route:clear",
-            "@php artisan event:clear",
-            "@php artisan cache:clear"
+            "bin/artisan config:clear",
+            "bin/artisan route:clear",
+            "bin/artisan event:clear",
+            "bin/artisan cache:clear"
         ],
         "test": [
-            "@php artisan config:clear --ansi",
-            "@php artisan test"
+            "bin/artisan config:clear --ansi",
+            "bin/artisan test"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "bin/artisan package:discover --ansi"
         ],
         "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
-            "@php artisan boost:update --ansi"
+            "bin/artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "bin/artisan boost:update --ansi"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "@php artisan key:generate --ansi",
+            "bin/artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
-            "@php artisan migrate --graceful --ansi"
+            "bin/artisan migrate --graceful --ansi"
         ],
         "pre-package-uninstall": [
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
