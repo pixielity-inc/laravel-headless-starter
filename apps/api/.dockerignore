@@ -38,10 +38,10 @@ bower_components/
 .env
 .env.*
 !.env.example
-env/.env
-env/.env.*
-!env/.env.example
-!env/.env.production
+environments/.env
+environments/.env.*
+!environments/.env.example
+!environments/.env.production
 
 # ------------------------------------------------------------------------------
 # Build & Compiled Files
@@ -93,7 +93,7 @@ phpunit.xml
 !README.md
 CONTRIBUTING.md
 OCTANE.md
-env/README.md
+environments/README.md
 
 # ------------------------------------------------------------------------------
 # Logs

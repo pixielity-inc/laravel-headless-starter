@@ -117,12 +117,12 @@ docker-compose.yml text
 /.gitignore export-ignore
 /CONTRIBUTING.md export-ignore
 /OCTANE.md export-ignore
-/env/README.md export-ignore
+/environments/README.md export-ignore
 /.env.example export-ignore
-/env/.env.example export-ignore
-/env/.env.local export-ignore
-/env/.env.production export-ignore
-/env/.env.testing export-ignore
+/environments/.env.example export-ignore
+/environments/.env.local export-ignore
+/environments/.env.production export-ignore
+/environments/.env.testing export-ignore
 
 # ------------------------------------------------------------------------------
 # Linguist (GitHub language detection)

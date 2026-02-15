@@ -10,13 +10,13 @@
 .env
 .env.*
 !.env.example
-env/.env
-env/.env.*
-!env/.env.example
-!env/.env.local
-!env/.env.production
-!env/.env.testing
-!env/README.md
+environments/.env
+environments/.env.*
+!environments/.env.example
+!environments/.env.local
+!environments/.env.production
+!environments/.env.testing
+!environments/README.md
 
 # ------------------------------------------------------------------------------
 # Dependencies
