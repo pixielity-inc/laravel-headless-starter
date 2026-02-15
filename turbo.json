@@ -1,6 +1,6 @@
 {
     "$schema": "https://turborepo.dev/schema.json",
-    "ui": "stream",
+    "ui": "tui",
     "daemon": true,
     "envMode": "strict",
     "concurrency": "10",
@@ -80,7 +80,9 @@
             "outputs": [
                 "public/build/**",
                 "public/hot",
-                "bootstrap/cache/**"
+                "bootstrap/cache/**",
+                "dist/**",
+                "build/**"
             ],
             "cache": true,
             "env": [
@@ -231,6 +233,11 @@
             "outputLogs": "full"
         },
         "clean": {
+            "cache": false,
+            "outputs": [],
+            "outputLogs": "new-only"
+        },
+        "cleanup": {
             "cache": false,
             "outputs": [],
             "outputLogs": "new-only"
