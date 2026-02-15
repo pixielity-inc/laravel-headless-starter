@@ -1,0 +1,10 @@
+parameters:
+    level: 8
+    paths:
+        - src
+        - public
+    excludePaths:
+        - vendor
+    tmpDir: .phpstan.cache
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false

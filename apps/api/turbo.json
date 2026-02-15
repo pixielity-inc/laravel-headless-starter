@@ -1,0 +1,47 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "composer:install": {
+      "cache": false,
+      "outputs": ["vendor/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["bootstrap/cache/**"]
+    },
+    "test": {
+      "dependsOn": ["build"],
+      "outputs": [".phpunit.cache/**"]
+    },
+    "test:unit": {
+      "dependsOn": ["build"],
+      "outputs": [".phpunit.cache/**"]
+    },
+    "test:feature": {
+      "dependsOn": ["build"],
+      "outputs": [".phpunit.cache/**"]
+    },
+    "lint": {
+      "outputs": []
+    },
+    "format": {
+      "outputs": []
+    },
+    "typecheck": {
+      "dependsOn": ["build"],
+      "outputs": [".phpstan.cache/**"]
+    },
+    "clean": {
+      "cache": false
+    },
+    "deploy": {
+      "dependsOn": ["build", "test"],
+      "outputs": []
+    }
+  }
+}

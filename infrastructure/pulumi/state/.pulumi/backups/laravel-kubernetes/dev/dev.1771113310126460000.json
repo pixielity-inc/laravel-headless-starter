@@ -1,0 +1,908 @@
+{
+    "version": 3,
+    "checkpoint": {
+        "stack": "organization/laravel-kubernetes/dev",
+        "latest": {
+            "manifest": {
+                "time": "2026-02-15T03:55:10.118638+04:00",
+                "magic": "22b7de8b0b797cfdc538c94a4e1b81eae77789956bbf6ad52b70e5ebbf1f68c0",
+                "version": "v3.220.0"
+            },
+            "secrets_providers": {
+                "type": "passphrase",
+                "state": {
+                    "salt": "v1:RGLY5mpI84Y=:v1:oxmMn829MNdktukG:eq+kxauGwdoPRMbFYxWy1Zz1zkMFVw=="
+                }
+            },
+            "pending_operations": [
+                {
+                    "resource": {
+                        "urn": "urn:pulumi:dev::laravel-kubernetes::kubernetes:core/v1:Service::meilisearch-service",
+                        "custom": true,
+                        "type": "kubernetes:core/v1:Service",
+                        "inputs": {
+                            "apiVersion": "v1",
+                            "kind": "Service",
+                            "metadata": {
+                                "annotations": {
+                                    "pulumi.com/managed": "true"
+                                },
+                                "labels": {
+                                    "app.kubernetes.io/component": "search",
+                                    "app.kubernetes.io/managed-by": "pulumi",
+                                    "app.kubernetes.io/name": "meilisearch",
+                                    "app.kubernetes.io/part-of": "laravel-stack",
+                                    "app.kubernetes.io/version": "latest",
+                                    "environment": "dev"
+                                },
+                                "name": "meilisearch",
+                                "namespace": "laravel-dev"
+                            },
+                            "spec": {
+                                "ports": [
+                                    {
+                                        "name": "http",
+                                        "port": 7700,
+                                        "protocol": "TCP",
+                                        "targetPort": 7700
+                                    }
+                                ],
+                                "selector": {
+                                    "app.kubernetes.io/component": "search",
+                                    "app.kubernetes.io/name": "meilisearch"
+                                },
+                                "sessionAffinity": "None",
+                                "type": "ClusterIP"
+                            }
+                        },
+                        "parent": "urn:pulumi:dev::laravel-kubernetes::pulumi:pulumi:Stack::laravel-kubernetes-dev",
+                        "provider": "urn:pulumi:dev::laravel-kubernetes::pulumi:providers:kubernetes::default_4_25_0::a45242a2-09d8-477f-bb00-d911c5e65a63",
+                        "propertyDependencies": {
+                            "apiVersion": [],
+                            "kind": [],
+                            "metadata": [],
+                            "spec": []
+                        },
+                        "sourcePosition": "project:///src/components/meilisearch.ts#233,19",
+                        "stackTrace": [
+                            {
+                                "sourcePosition": "project:///src/components/meilisearch.ts#233,19"
+                            },
+                            {
+                                "sourcePosition": "project:///src/index.ts#142,58"
+                            },
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/cmd/run/run.ts#543,33"
+                            },
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/runtime/stack.ts#78,28"
+                            },
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/resource.ts#1579,22"
+                            }
+                        ]
+                    },
+                    "type": "creating"
+                },
+                {
+                    "resource": {
+                        "urn": "urn:pulumi:dev::laravel-kubernetes::kubernetes:networking.k8s.io/v1:Ingress::laravel-ingress",
+                        "custom": true,
+                        "type": "kubernetes:networking.k8s.io/v1:Ingress",
+                        "inputs": {
+                            "apiVersion": "networking.k8s.io/v1",
+                            "kind": "Ingress",
+                            "metadata": {
+                                "annotations": {
+                                    "pulumi.com/managed": "true"
+                                },
+                                "labels": {
+                                    "app.kubernetes.io/component": "ingress",
+                                    "app.kubernetes.io/managed-by": "pulumi",
+                                    "app.kubernetes.io/name": "laravel",
+                                    "app.kubernetes.io/part-of": "laravel-stack",
+                                    "app.kubernetes.io/version": "latest",
+                                    "environment": "dev"
+                                },
+                                "name": "laravel-ingress",
+                                "namespace": "laravel-dev"
+                            },
+                            "spec": {
+                                "ingressClassName": "nginx",
+                                "rules": [
+                                    {
+                                        "host": "laravel.local",
+                                        "http": {
+                                            "paths": [
+                                                {
+                                                    "backend": {
+                                                        "service": {
+                                                            "name": "laravel-web",
+                                                            "port": {
+                                                                "number": 80
+                                                            }
+                                                        }
+                                                    },
+                                                    "path": "/",
+                                                    "pathType": "Prefix"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        "parent": "urn:pulumi:dev::laravel-kubernetes::pulumi:pulumi:Stack::laravel-kubernetes-dev",
+                        "provider": "urn:pulumi:dev::laravel-kubernetes::pulumi:providers:kubernetes::default_4_25_0::a45242a2-09d8-477f-bb00-d911c5e65a63",
+                        "propertyDependencies": {
+                            "apiVersion": [],
+                            "kind": [],
+                            "metadata": [],
+                            "spec": []
+                        },
+                        "sourcePosition": "project:///src/components/ingress.ts#77,19",
+                        "stackTrace": [
+                            {
+                                "sourcePosition": "project:///src/components/ingress.ts#77,19"
+                            },
+                            {
+                                "sourcePosition": "project:///src/index.ts#182,30"
+                            },
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/cmd/run/run.ts#543,33"
+                            },
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/runtime/stack.ts#78,28"
+                            },
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/resource.ts#1579,22"
+                            }
+                        ]
+                    },
+                    "type": "creating"
+                },
+                {
+                    "resource": {
+                        "urn": "urn:pulumi:dev::laravel-kubernetes::kubernetes:apps/v1:Deployment::meilisearch",
+                        "custom": true,
+                        "type": "kubernetes:apps/v1:Deployment",
+                        "inputs": {
+                            "apiVersion": "apps/v1",
+                            "kind": "Deployment",
+                            "metadata": {
+                                "annotations": {
+                                    "pulumi.com/managed": "true"
+                                },
+                                "labels": {
+                                    "app.kubernetes.io/component": "search",
+                                    "app.kubernetes.io/managed-by": "pulumi",
+                                    "app.kubernetes.io/name": "meilisearch",
+                                    "app.kubernetes.io/part-of": "laravel-stack",
+                                    "app.kubernetes.io/version": "latest",
+                                    "environment": "dev"
+                                },
+                                "name": "meilisearch",
+                                "namespace": "laravel-dev"
+                            },
+                            "spec": {
+                                "replicas": 1,
+                                "selector": {
+                                    "matchLabels": {
+                                        "app.kubernetes.io/component": "search",
+                                        "app.kubernetes.io/name": "meilisearch"
+                                    }
+                                },
+                                "strategy": {
+                                    "rollingUpdate": {
+                                        "maxSurge": 1,
+                                        "maxUnavailable": 0
+                                    },
+                                    "type": "RollingUpdate"
+                                },
+                                "template": {
+                                    "metadata": {
+                                        "annotations": {
+                                            "prometheus.io/path": "/metrics",
+                                            "prometheus.io/port": "7700",
+                                            "prometheus.io/scrape": "true",
+                                            "pulumi.com/managed": "true"
+                                        },
+                                        "labels": {
+                                            "app.kubernetes.io/component": "search",
+                                            "app.kubernetes.io/managed-by": "pulumi",
+                                            "app.kubernetes.io/name": "meilisearch",
+                                            "app.kubernetes.io/part-of": "laravel-stack",
+                                            "app.kubernetes.io/version": "latest",
+                                            "environment": "dev"
+                                        }
+                                    },
+                                    "spec": {
+                                        "containers": [
+                                            {
+                                                "env": [
+                                                    {
+                                                        "name": "MEILI_ENV",
+                                                        "value": "production"
+                                                    },
+                                                    {
+                                                        "name": "MEILI_MASTER_KEY",
+                                                        "valueFrom": {
+                                                            "secretKeyRef": {
+                                                                "key": "master-key",
+                                                                "name": "meilisearch-credentials"
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "MEILI_HTTP_ADDR",
+                                                        "value": "0.0.0.0:7700"
+                                                    },
+                                                    {
+                                                        "name": "MEILI_NO_ANALYTICS",
+                                                        "value": "true"
+                                                    }
+                                                ],
+                                                "image": "getmeili/meilisearch:latest",
+                                                "imagePullPolicy": "IfNotPresent",
+                                                "livenessProbe": {
+                                                    "failureThreshold": 3,
+                                                    "httpGet": {
+                                                        "path": "/health",
+                                                        "port": 7700
+                                                    },
+                                                    "initialDelaySeconds": 30,
+                                                    "periodSeconds": 10,
+                                                    "timeoutSeconds": 5
+                                                },
+                                                "name": "meilisearch",
+                                                "ports": [
+                                                    {
+                                                        "containerPort": 7700,
+                                                        "name": "http",
+                                                        "protocol": "TCP"
+                                                    }
+                                                ],
+                                                "readinessProbe": {
+                                                    "failureThreshold": 3,
+                                                    "httpGet": {
+                                                        "path": "/health",
+                                                        "port": 7700
+                                                    },
+                                                    "initialDelaySeconds": 10,
+                                                    "periodSeconds": 5,
+                                                    "timeoutSeconds": 3
+                                                },
+                                                "resources": {
+                                                    "limits": {
+                                                        "cpu": "1",
+                                                        "memory": "1Gi"
+                                                    },
+                                                    "requests": {
+                                                        "cpu": "500m",
+                                                        "memory": "512Mi"
+                                                    }
+                                                },
+                                                "securityContext": {
+                                                    "allowPrivilegeEscalation": false,
+                                                    "capabilities": {
+                                                        "drop": [
+                                                            "ALL"
+                                                        ]
+                                                    },
+                                                    "readOnlyRootFilesystem": false,
+                                                    "runAsNonRoot": true,
+                                                    "runAsUser": 1000
+                                                },
+                                                "volumeMounts": [
+                                                    {
+                                                        "mountPath": "/meili_data",
+                                                        "name": "data"
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "dnsPolicy": "ClusterFirst",
+                                        "restartPolicy": "Always",
+                                        "securityContext": {
+                                            "fsGroup": 1000,
+                                            "runAsNonRoot": true,
+                                            "runAsUser": 1000,
+                                            "seccompProfile": {
+                                                "type": "RuntimeDefault"
+                                            }
+                                        },
+                                        "terminationGracePeriodSeconds": 30,
+                                        "volumes": [
+                                            {
+                                                "emptyDir": {},
+                                                "name": "data"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "parent": "urn:pulumi:dev::laravel-kubernetes::pulumi:pulumi:Stack::laravel-kubernetes-dev",
+                        "provider": "urn:pulumi:dev::laravel-kubernetes::pulumi:providers:kubernetes::default_4_25_0::a45242a2-09d8-477f-bb00-d911c5e65a63",
+                        "propertyDependencies": {
+                            "apiVersion": [],
+                            "kind": [],
+                            "metadata": [],
+                            "spec": []
+                        },
+                        "sourcePosition": "project:///src/components/meilisearch.ts#116,22",
+                        "stackTrace": [
+                            {
+                                "sourcePosition": "project:///src/components/meilisearch.ts#116,22"
+                            },
+                            {
+                                "sourcePosition": "project:///src/index.ts#142,58"
+                            },
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/cmd/run/run.ts#543,33"
+                            },
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/runtime/stack.ts#78,28"
+                            },
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/resource.ts#1579,22"
+                            }
+                        ]
+                    },
+                    "type": "creating"
+                },
+                {
+                    "resource": {
+                        "urn": "urn:pulumi:dev::laravel-kubernetes::kubernetes:core/v1:Service::laravel-web-service",
+                        "custom": true,
+                        "type": "kubernetes:core/v1:Service",
+                        "inputs": {
+                            "apiVersion": "v1",
+                            "kind": "Service",
+                            "metadata": {
+                                "annotations": {
+                                    "pulumi.com/managed": "true"
+                                },
+                                "labels": {
+                                    "app.kubernetes.io/component": "web",
+                                    "app.kubernetes.io/managed-by": "pulumi",
+                                    "app.kubernetes.io/name": "laravel",
+                                    "app.kubernetes.io/part-of": "laravel-stack",
+                                    "app.kubernetes.io/version": "latest",
+                                    "environment": "dev"
+                                },
+                                "name": "laravel-web",
+                                "namespace": "laravel-dev"
+                            },
+                            "spec": {
+                                "ports": [
+                                    {
+                                        "name": "http",
+                                        "port": 80,
+                                        "protocol": "TCP",
+                                        "targetPort": 8000
+                                    }
+                                ],
+                                "selector": {
+                                    "app.kubernetes.io/component": "web",
+                                    "app.kubernetes.io/name": "laravel"
+                                },
+                                "sessionAffinity": "None",
+                                "type": "ClusterIP"
+                            }
+                        },
+                        "parent": "urn:pulumi:dev::laravel-kubernetes::pulumi:pulumi:Stack::laravel-kubernetes-dev",
+                        "provider": "urn:pulumi:dev::laravel-kubernetes::pulumi:providers:kubernetes::default_4_25_0::a45242a2-09d8-477f-bb00-d911c5e65a63",
+                        "propertyDependencies": {
+                            "apiVersion": [],
+                            "kind": [],
+                            "metadata": [],
+                            "spec": []
+                        },
+                        "sourcePosition": "project:///src/components/laravel-app.ts#310,19",
+                        "stackTrace": [
+                            {
+                                "sourcePosition": "project:///src/components/laravel-app.ts#310,19"
+                            },
+                            {
+                                "sourcePosition": "project:///src/index.ts#167,36"
+                            },
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/cmd/run/run.ts#543,33"
+                            },
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/runtime/stack.ts#78,28"
+                            },
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/resource.ts#1579,22"
+                            }
+                        ]
+                    },
+                    "type": "creating"
+                },
+                {
+                    "resource": {
+                        "urn": "urn:pulumi:dev::laravel-kubernetes::kubernetes:core/v1:Service::laravel-reverb-service",
+                        "custom": true,
+                        "type": "kubernetes:core/v1:Service",
+                        "inputs": {
+                            "apiVersion": "v1",
+                            "kind": "Service",
+                            "metadata": {
+                                "annotations": {
+                                    "pulumi.com/managed": "true",
+                                    "service.kubernetes.io/topology-aware-hints": "auto"
+                                },
+                                "labels": {
+                                    "app.kubernetes.io/component": "reverb",
+                                    "app.kubernetes.io/managed-by": "pulumi",
+                                    "app.kubernetes.io/name": "laravel",
+                                    "app.kubernetes.io/part-of": "laravel-stack",
+                                    "app.kubernetes.io/version": "latest",
+                                    "environment": "dev"
+                                },
+                                "name": "laravel-reverb",
+                                "namespace": "laravel-dev"
+                            },
+                            "spec": {
+                                "ports": [
+                                    {
+                                        "name": "websocket",
+                                        "port": 80,
+                                        "protocol": "TCP",
+                                        "targetPort": 8080
+                                    }
+                                ],
+                                "selector": {
+                                    "app.kubernetes.io/component": "reverb",
+                                    "app.kubernetes.io/name": "laravel"
+                                },
+                                "sessionAffinity": "ClientIP",
+                                "sessionAffinityConfig": {
+                                    "clientIP": {
+                                        "timeoutSeconds": 10800
+                                    }
+                                },
+                                "type": "ClusterIP"
+                            }
+                        },
+                        "parent": "urn:pulumi:dev::laravel-kubernetes::pulumi:pulumi:Stack::laravel-kubernetes-dev",
+                        "provider": "urn:pulumi:dev::laravel-kubernetes::pulumi:providers:kubernetes::default_4_25_0::a45242a2-09d8-477f-bb00-d911c5e65a63",
+                        "propertyDependencies": {
+                            "apiVersion": [],
+                            "kind": [],
+                            "metadata": [],
+                            "spec": []
+                        },
+                        "sourcePosition": "project:///src/components/laravel-reverb.ts#315,19",
+                        "stackTrace": [
+                            {
+                                "sourcePosition": "project:///src/components/laravel-reverb.ts#315,19"
+                            },
+                            {
+                                "sourcePosition": "project:///src/index.ts#173,42"
+                            },
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/cmd/run/run.ts#543,33"
+                            },
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/runtime/stack.ts#78,28"
+                            },
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/resource.ts#1579,22"
+                            }
+                        ]
+                    },
+                    "type": "creating"
+                },
+                {
+                    "resource": {
+                        "urn": "urn:pulumi:dev::laravel-kubernetes::kubernetes:apps/v1:Deployment::laravel-worker",
+                        "custom": true,
+                        "type": "kubernetes:apps/v1:Deployment",
+                        "inputs": {
+                            "apiVersion": "apps/v1",
+                            "kind": "Deployment",
+                            "metadata": {
+                                "annotations": {
+                                    "pulumi.com/managed": "true"
+                                },
+                                "labels": {
+                                    "app.kubernetes.io/component": "worker",
+                                    "app.kubernetes.io/managed-by": "pulumi",
+                                    "app.kubernetes.io/name": "laravel",
+                                    "app.kubernetes.io/part-of": "laravel-stack",
+                                    "app.kubernetes.io/version": "latest",
+                                    "environment": "dev"
+                                },
+                                "name": "laravel-worker",
+                                "namespace": "laravel-dev"
+                            },
+                            "spec": {
+                                "replicas": 1,
+                                "selector": {
+                                    "matchLabels": {
+                                        "app.kubernetes.io/component": "worker",
+                                        "app.kubernetes.io/name": "laravel"
+                                    }
+                                },
+                                "strategy": {
+                                    "rollingUpdate": {
+                                        "maxSurge": 1,
+                                        "maxUnavailable": 0
+                                    },
+                                    "type": "RollingUpdate"
+                                },
+                                "template": {
+                                    "metadata": {
+                                        "annotations": {
+                                            "prometheus.io/path": "/metrics",
+                                            "prometheus.io/port": "9090",
+                                            "prometheus.io/scrape": "true",
+                                            "pulumi.com/managed": "true"
+                                        },
+                                        "labels": {
+                                            "app.kubernetes.io/component": "worker",
+                                            "app.kubernetes.io/managed-by": "pulumi",
+                                            "app.kubernetes.io/name": "laravel",
+                                            "app.kubernetes.io/part-of": "laravel-stack",
+                                            "app.kubernetes.io/version": "latest",
+                                            "environment": "dev"
+                                        }
+                                    },
+                                    "spec": {
+                                        "containers": {
+                                            "4dabf18193072939515e22adb298388d": "1b47061264138c4ac30d75fd1eb44270",
+                                            "ciphertext": "v1:jolUf7uHHXoysIre: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"
+                                        },
+                                        "dnsPolicy": "ClusterFirst",
+                                        "restartPolicy": "Always",
+                                        "securityContext": {
+                                            "fsGroup": 1000,
+                                            "runAsNonRoot": true,
+                                            "runAsUser": 1000,
+                                            "seccompProfile": {
+                                                "type": "RuntimeDefault"
+                                            }
+                                        },
+                                        "terminationGracePeriodSeconds": 120,
+                                        "volumes": [
+                                            {
+                                                "emptyDir": {},
+                                                "name": "storage"
+                                            },
+                                            {
+                                                "emptyDir": {},
+                                                "name": "cache"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "parent": "urn:pulumi:dev::laravel-kubernetes::pulumi:pulumi:Stack::laravel-kubernetes-dev",
+                        "provider": "urn:pulumi:dev::laravel-kubernetes::pulumi:providers:kubernetes::default_4_25_0::a45242a2-09d8-477f-bb00-d911c5e65a63",
+                        "propertyDependencies": {
+                            "apiVersion": [],
+                            "kind": [],
+                            "metadata": [],
+                            "spec": []
+                        },
+                        "sourcePosition": "project:///src/components/laravel-worker.ts#100,22",
+                        "stackTrace": [
+                            {
+                                "sourcePosition": "project:///src/components/laravel-worker.ts#100,22"
+                            },
+                            {
+                                "sourcePosition": "project:///src/index.ts#170,42"
+                            },
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/cmd/run/run.ts#543,33"
+                            },
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/runtime/stack.ts#78,28"
+                            },
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/resource.ts#1579,22"
+                            }
+                        ]
+                    },
+                    "type": "creating"
+                },
+                {
+                    "resource": {
+                        "urn": "urn:pulumi:dev::laravel-kubernetes::kubernetes:apps/v1:Deployment::laravel-reverb",
+                        "custom": true,
+                        "type": "kubernetes:apps/v1:Deployment",
+                        "inputs": {
+                            "apiVersion": "apps/v1",
+                            "kind": "Deployment",
+                            "metadata": {
+                                "annotations": {
+                                    "pulumi.com/managed": "true"
+                                },
+                                "labels": {
+                                    "app.kubernetes.io/component": "reverb",
+                                    "app.kubernetes.io/managed-by": "pulumi",
+                                    "app.kubernetes.io/name": "laravel",
+                                    "app.kubernetes.io/part-of": "laravel-stack",
+                                    "app.kubernetes.io/version": "latest",
+                                    "environment": "dev"
+                                },
+                                "name": "laravel-reverb",
+                                "namespace": "laravel-dev"
+                            },
+                            "spec": {
+                                "replicas": 1,
+                                "selector": {
+                                    "matchLabels": {
+                                        "app.kubernetes.io/component": "reverb",
+                                        "app.kubernetes.io/name": "laravel"
+                                    }
+                                },
+                                "strategy": {
+                                    "rollingUpdate": {
+                                        "maxSurge": 1,
+                                        "maxUnavailable": 0
+                                    },
+                                    "type": "RollingUpdate"
+                                },
+                                "template": {
+                                    "metadata": {
+                                        "annotations": {
+                                            "prometheus.io/path": "/metrics",
+                                            "prometheus.io/port": "8080",
+                                            "prometheus.io/scrape": "true",
+                                            "pulumi.com/managed": "true"
+                                        },
+                                        "labels": {
+                                            "app.kubernetes.io/component": "reverb",
+                                            "app.kubernetes.io/managed-by": "pulumi",
+                                            "app.kubernetes.io/name": "laravel",
+                                            "app.kubernetes.io/part-of": "laravel-stack",
+                                            "app.kubernetes.io/version": "latest",
+                                            "environment": "dev"
+                                        }
+                                    },
+                                    "spec": {
+                                        "containers": {
+                                            "4dabf18193072939515e22adb298388d": "1b47061264138c4ac30d75fd1eb44270",
+                                            "ciphertext": "v1:P0JX/6jNVQvFrbL3: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"
+                                        },
+                                        "dnsPolicy": "ClusterFirst",
+                                        "restartPolicy": "Always",
+                                        "securityContext": {
+                                            "fsGroup": 1000,
+                                            "runAsNonRoot": true,
+                                            "runAsUser": 1000,
+                                            "seccompProfile": {
+                                                "type": "RuntimeDefault"
+                                            }
+                                        },
+                                        "terminationGracePeriodSeconds": 60,
+                                        "volumes": [
+                                            {
+                                                "emptyDir": {},
+                                                "name": "storage"
+                                            },
+                                            {
+                                                "emptyDir": {},
+                                                "name": "cache"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "parent": "urn:pulumi:dev::laravel-kubernetes::pulumi:pulumi:Stack::laravel-kubernetes-dev",
+                        "provider": "urn:pulumi:dev::laravel-kubernetes::pulumi:providers:kubernetes::default_4_25_0::a45242a2-09d8-477f-bb00-d911c5e65a63",
+                        "propertyDependencies": {
+                            "apiVersion": [],
+                            "kind": [],
+                            "metadata": [],
+                            "spec": []
+                        },
+                        "sourcePosition": "project:///src/components/laravel-reverb.ts#108,22",
+                        "stackTrace": [
+                            {
+                                "sourcePosition": "project:///src/components/laravel-reverb.ts#108,22"
+                            },
+                            {
+                                "sourcePosition": "project:///src/index.ts#173,42"
+                            },
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/cmd/run/run.ts#543,33"
+                            },
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/runtime/stack.ts#78,28"
+                            },
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/resource.ts#1579,22"
+                            }
+                        ]
+                    },
+                    "type": "creating"
+                },
+                {
+                    "resource": {
+                        "urn": "urn:pulumi:dev::laravel-kubernetes::kubernetes:apps/v1:Deployment::laravel-web",
+                        "custom": true,
+                        "type": "kubernetes:apps/v1:Deployment",
+                        "inputs": {
+                            "apiVersion": "apps/v1",
+                            "kind": "Deployment",
+                            "metadata": {
+                                "annotations": {
+                                    "pulumi.com/managed": "true"
+                                },
+                                "labels": {
+                                    "app.kubernetes.io/component": "web",
+                                    "app.kubernetes.io/managed-by": "pulumi",
+                                    "app.kubernetes.io/name": "laravel",
+                                    "app.kubernetes.io/part-of": "laravel-stack",
+                                    "app.kubernetes.io/version": "latest",
+                                    "environment": "dev"
+                                },
+                                "name": "laravel-web",
+                                "namespace": "laravel-dev"
+                            },
+                            "spec": {
+                                "replicas": 1,
+                                "selector": {
+                                    "matchLabels": {
+                                        "app.kubernetes.io/component": "web",
+                                        "app.kubernetes.io/name": "laravel"
+                                    }
+                                },
+                                "strategy": {
+                                    "rollingUpdate": {
+                                        "maxSurge": 1,
+                                        "maxUnavailable": 0
+                                    },
+                                    "type": "RollingUpdate"
+                                },
+                                "template": {
+                                    "metadata": {
+                                        "annotations": {
+                                            "prometheus.io/path": "/metrics",
+                                            "prometheus.io/port": "8000",
+                                            "prometheus.io/scrape": "true",
+                                            "pulumi.com/managed": "true"
+                                        },
+                                        "labels": {
+                                            "app.kubernetes.io/component": "web",
+                                            "app.kubernetes.io/managed-by": "pulumi",
+                                            "app.kubernetes.io/name": "laravel",
+                                            "app.kubernetes.io/part-of": "laravel-stack",
+                                            "app.kubernetes.io/version": "latest",
+                                            "environment": "dev"
+                                        }
+                                    },
+                                    "spec": {
+                                        "containers": {
+                                            "4dabf18193072939515e22adb298388d": "1b47061264138c4ac30d75fd1eb44270",
+                                            "ciphertext": "v1:vKIYkNajJaQDygrE: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"
+                                        },
+                                        "dnsPolicy": "ClusterFirst",
+                                        "restartPolicy": "Always",
+                                        "securityContext": {
+                                            "fsGroup": 1000,
+                                            "runAsNonRoot": true,
+                                            "runAsUser": 1000,
+                                            "seccompProfile": {
+                                                "type": "RuntimeDefault"
+                                            }
+                                        },
+                                        "terminationGracePeriodSeconds": 30,
+                                        "volumes": [
+                                            {
+                                                "emptyDir": {},
+                                                "name": "storage"
+                                            },
+                                            {
+                                                "emptyDir": {},
+                                                "name": "cache"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "parent": "urn:pulumi:dev::laravel-kubernetes::pulumi:pulumi:Stack::laravel-kubernetes-dev",
+                        "provider": "urn:pulumi:dev::laravel-kubernetes::pulumi:providers:kubernetes::default_4_25_0::a45242a2-09d8-477f-bb00-d911c5e65a63",
+                        "propertyDependencies": {
+                            "apiVersion": [],
+                            "kind": [],
+                            "metadata": [],
+                            "spec": []
+                        },
+                        "sourcePosition": "project:///src/components/laravel-app.ts#102,22",
+                        "stackTrace": [
+                            {
+                                "sourcePosition": "project:///src/components/laravel-app.ts#102,22"
+                            },
+                            {
+                                "sourcePosition": "project:///src/index.ts#167,36"
+                            },
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {},
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/cmd/run/run.ts#543,33"
+                            },
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/runtime/stack.ts#78,28"
+                            },
+                            {
+                                "sourcePosition": "project:///node_modules/.pnpm/@pulumi+pulumi@3.220.0_typescript@5.9.3/node_modules/@pulumi/resource.ts#1579,22"
+                            }
+                        ]
+                    },
+                    "type": "creating"
+                }
+            ],
+            "metadata": {}
+        }
+    }
+}

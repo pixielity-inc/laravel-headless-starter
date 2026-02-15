@@ -1,0 +1,26 @@
+{
+    "$schema": "vendor/infection/infection/resources/schema.json",
+    "source": {
+        "directories": [
+            "app",
+            "src"
+        ],
+        "excludes": [
+            "Providers",
+            "Console/Kernel.php",
+            "Exceptions/Handler.php"
+        ]
+    },
+    "logs": {
+        "text": ".infection.log",
+        "summary": ".infection-summary.log"
+    },
+    "mutators": {
+        "@default": true
+    },
+    "minMsi": 50,
+    "minCoveredMsi": 70,
+    "phpUnit": {
+        "configDir": "."
+    }
+}

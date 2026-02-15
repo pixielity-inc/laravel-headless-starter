@@ -1,0 +1,11 @@
+vendor/
+node_modules/
+.turbo/
+*.php
+*.blade.php
+*.lock
+pnpm-lock.yaml
+composer.lock
+storage/
+bootstrap/cache/
+public/build/
