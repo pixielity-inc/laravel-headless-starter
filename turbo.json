@@ -1,0 +1,256 @@
+{
+    "$schema": "https://turborepo.dev/schema.json",
+    "ui": "stream",
+    "daemon": true,
+    "envMode": "strict",
+    "concurrency": "10",
+    "cacheDir": ".turbo/cache",
+    "noUpdateNotifier": false,
+    "dangerouslyDisablePackageManagerCheck": false,
+    "globalDependencies": [
+        ".env",
+        ".env.example",
+        "composer.json",
+        "composer.lock",
+        "pnpm-lock.yaml",
+        "turbo.json",
+        "tooling/**"
+    ],
+    "globalEnv": [
+        "NODE_ENV",
+        "CI",
+        "VERCEL",
+        "GITHUB_ACTIONS"
+    ],
+    "globalPassThroughEnv": [
+        "HOME",
+        "PATH",
+        "SHELL",
+        "USER",
+        "TMPDIR",
+        "LANG",
+        "LC_ALL",
+        "TZ"
+    ],
+    "remoteCache": {
+        "enabled": true,
+        "signature": false,
+        "preflight": false,
+        "timeout": 30,
+        "uploadTimeout": 60
+    },
+    "tasks": {
+        "setup": {
+            "dependsOn": ["composer:install"],
+            "cache": false,
+            "interactive": false,
+            "persistent": false
+        },
+        "composer:install": {
+            "inputs": [
+                "composer.json",
+                "composer.lock"
+            ],
+            "outputs": [
+                "vendor/**",
+                "composer.lock"
+            ],
+            "cache": true,
+            "env": [],
+            "passThroughEnv": [
+                "COMPOSER_AUTH",
+                "COMPOSER_HOME",
+                "COMPOSER_CACHE_DIR"
+            ],
+            "outputLogs": "hash-only"
+        },
+        "build": {
+            "dependsOn": [
+                "^build",
+                "composer:install"
+            ],
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                ".env",
+                ".env.example",
+                "!**/*.md",
+                "!**/*.test.php",
+                "!tests/**"
+            ],
+            "outputs": [
+                "public/build/**",
+                "public/hot",
+                "bootstrap/cache/**"
+            ],
+            "cache": true,
+            "env": [
+                "APP_ENV",
+                "APP_KEY",
+                "APP_URL",
+                "VITE_*"
+            ],
+            "outputLogs": "new-only"
+        },
+        "lint": {
+            "dependsOn": [
+                "^lint",
+                "composer:install"
+            ],
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.md",
+                "!vendor/**",
+                "!node_modules/**"
+            ],
+            "outputs": [],
+            "cache": true,
+            "outputLogs": "errors-only"
+        },
+        "format": {
+            "dependsOn": ["composer:install"],
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "!**/*.md",
+                "!vendor/**",
+                "!node_modules/**"
+            ],
+            "outputs": [],
+            "cache": false,
+            "outputLogs": "new-only"
+        },
+        "test": {
+            "dependsOn": [
+                "^test",
+                "composer:install"
+            ],
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "phpunit.xml",
+                "phpunit.xml.dist",
+                "!vendor/**",
+                "!node_modules/**"
+            ],
+            "outputs": [
+                "tests/Datasets/**",
+                "coverage/**",
+                ".phpunit.cache/**"
+            ],
+            "cache": true,
+            "env": [
+                "APP_ENV",
+                "DB_CONNECTION",
+                "DB_DATABASE"
+            ],
+            "outputLogs": "errors-only"
+        },
+        "test:unit": {
+            "dependsOn": ["composer:install"],
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "phpunit.xml",
+                "!vendor/**",
+                "!tests/Feature/**"
+            ],
+            "outputs": [
+                "coverage/**",
+                ".phpunit.cache/**"
+            ],
+            "cache": true,
+            "env": [
+                "APP_ENV"
+            ],
+            "outputLogs": "errors-only"
+        },
+        "test:feature": {
+            "dependsOn": ["composer:install"],
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "phpunit.xml",
+                "!vendor/**",
+                "!tests/Unit/**"
+            ],
+            "outputs": [
+                "coverage/**",
+                ".phpunit.cache/**"
+            ],
+            "cache": true,
+            "env": [
+                "APP_ENV",
+                "DB_CONNECTION",
+                "DB_DATABASE"
+            ],
+            "outputLogs": "errors-only"
+        },
+        "typecheck": {
+            "dependsOn": [
+                "^typecheck",
+                "composer:install"
+            ],
+            "inputs": [
+                "$TURBO_DEFAULT$",
+                "phpstan.neon",
+                "phpstan.neon.dist",
+                "$TURBO_ROOT$/tooling/phpstan/**",
+                "!vendor/**",
+                "!node_modules/**",
+                "!**/*.md"
+            ],
+            "outputs": [
+                ".phpstan.cache/**"
+            ],
+            "cache": true,
+            "outputLogs": "errors-only"
+        },
+        "dev": {
+            "dependsOn": ["composer:install"],
+            "cache": false,
+            "persistent": true,
+            "interactive": false,
+            "env": [
+                "APP_*",
+                "DB_*",
+                "REDIS_*",
+                "MAIL_*",
+                "AWS_*",
+                "VITE_*"
+            ],
+            "outputLogs": "full"
+        },
+        "start": {
+            "dependsOn": ["build"],
+            "cache": false,
+            "persistent": true,
+            "interactive": false,
+            "env": [
+                "APP_*",
+                "DB_*",
+                "REDIS_*",
+                "MAIL_*",
+                "AWS_*"
+            ],
+            "outputLogs": "full"
+        },
+        "clean": {
+            "cache": false,
+            "outputs": [],
+            "outputLogs": "new-only"
+        },
+        "deploy": {
+            "dependsOn": [
+                "build",
+                "test",
+                "lint",
+                "typecheck"
+            ],
+            "cache": true,
+            "outputs": [],
+            "outputLogs": "errors-only"
+        },
+        "generate": {
+            "dependsOn": ["composer:install"],
+            "cache": false,
+            "outputs": [],
+            "outputLogs": "new-only"
+        }
+    }
+}
