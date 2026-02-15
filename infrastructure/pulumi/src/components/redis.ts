@@ -16,6 +16,7 @@
  */
 
 import * as k8s from '@pulumi/kubernetes';
+import * as pulumi from '@pulumi/pulumi';
 
 import {
   createSecret,
@@ -87,18 +88,14 @@ export function createRedis(config: Config, namespace: string): RedisResources {
   // Secret: Redis Password
   // -------------------------------------------------------------------------
 
-  let secret: k8s.core.v1.Secret | undefined;
-
-  if (redisConfig.password) {
-    secret = createSecret(
-      'redis-password',
-      namespace,
-      {
-        'redis-password': redisConfig.password,
-      },
-      labels
-    );
-  }
+  const secret = createSecret(
+    'redis-password',
+    namespace,
+    {
+      'redis-password': redisConfig.password || pulumi.secret('changeme'),
+    },
+    labels
+  );
 
   // -------------------------------------------------------------------------
   // Deployment: Redis Server
