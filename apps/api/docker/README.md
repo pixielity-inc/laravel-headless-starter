@@ -7,7 +7,7 @@ This directory contains modular Docker Compose configurations for various servic
 ### Option 1: Full Stack (Easiest)
 ```bash
 # Start everything with one command
-docker-compose -f docker/docker-compose.full.yml up -d
+docker-compose -f docker/docker-compose.yml up -d
 
 # Access management UIs:
 # - App: http://localhost:8000
@@ -50,7 +50,7 @@ All database and storage services include web-based management interfaces:
 - **Description**: Main Laravel application with Octane + FrankenPHP
 - **Always required**: Yes
 
-#### `docker-compose.full.yml` - Complete Stack
+#### `docker-compose.yml` - Complete Stack
 - **Description**: All services pre-configured for development
 - **Use case**: Quick start, development, testing
 - **Includes**: App, PostgreSQL, Redis, MinIO, Meilisearch, Mailpit, Reverb, Workers
@@ -189,7 +189,7 @@ docker-compose -f docker-compose.yml \
 
 ```bash
 # 1. Copy template (if you don't have .env yet)
-cp env/.env.local .env
+cp environments/.env.local .env
 
 # 2. Update ONLY these host names for Docker:
 DB_HOST=postgres          # Change from 127.0.0.1
@@ -198,7 +198,7 @@ MAIL_HOST=mailpit         # Change from 127.0.0.1 (if using Mailpit)
 REVERB_HOST=reverb        # Change from localhost (if using Reverb)
 
 # 3. Start Docker
-docker-compose -f docker/docker-compose.full.yml up -d
+docker-compose -f docker/docker-compose.yml up -d
 ```
 
 ### Docker Service Names (Hosts)
@@ -217,7 +217,7 @@ When using Docker, change these hosts in your `.env`:
 
 ### Complete Docker Configuration Reference
 
-See `env/.env.docker.example` for all Docker-specific values. Key changes:
+See `environments/.env.docker.example` for all Docker-specific values. Key changes:
 
 ```env
 # Database
@@ -341,8 +341,8 @@ chmod -R 775 ../storage
 ### Reset everything
 ```bash
 cd docker
-docker-compose -f docker-compose.full.yml down -v
-docker-compose -f docker-compose.full.yml up -d
+docker-compose -f docker-compose.yml down -v
+docker-compose -f docker-compose.yml up -d
 ```
 
 ### Can't access management UIs
@@ -375,7 +375,7 @@ cd docker && docker-compose logs postgres
 ```
 docker/
 ├── docker-compose.yml          # Base Laravel app
-├── docker-compose.full.yml     # Complete stack (all services)
+├── docker-compose.yml     # Complete stack (all services)
 ├── Dockerfile                  # Laravel app image
 ├── services/                   # Modular service files
 │   ├── compose.postgres.yml
