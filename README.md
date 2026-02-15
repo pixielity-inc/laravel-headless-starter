@@ -92,10 +92,10 @@ pnpm install
 
 # Generate application key
 cd apps/api
-php artisan key:generate
+bin/artisan key:generate
 
 # Run migrations
-php artisan migrate
+bin/artisan migrate
 
 # Start development server
 cd ../..
@@ -133,7 +133,7 @@ docker-compose -f docker/docker-compose.yml down
 │       ├── tests/         # Pest tests
 │       ├── docker/        # Docker configurations
 │       ├── docs/          # Application documentation
-│       └── env/           # Environment templates
+│       └── environments/           # Environment templates
 ├── packages/              # Shared packages (future use)
 ├── infrastructure/        # Infrastructure as code
 │   ├── pulumi/           # Kubernetes infrastructure
@@ -212,12 +212,12 @@ See `turbo.json` for complete pipeline configuration.
 cd apps/api
 
 # Run Artisan commands
-php artisan migrate
-php artisan db:seed
-php artisan make:controller UserController
+bin/artisan migrate
+bin/artisan db:seed
+bin/artisan make:controller UserController
 
 # Run tests
-php artisan test
+bin/artisan test
 # or
 vendor/bin/pest
 
@@ -225,25 +225,25 @@ vendor/bin/pest
 vendor/bin/pint
 
 # Start Octane server
-php artisan octane:start --watch
+bin/artisan octane:start --watch
 ```
 
 ### Environment Configuration
 
-Environment files are organized in `apps/api/env/`:
+Environment files are organized in `apps/api/environments/`:
 
 ```bash
 # Development (default)
-ln -sf env/.env.example .env
+ln -sf environments/.env.example .env
 
 # Docker
-ln -sf env/.env.docker .env
+ln -sf environments/.env.docker .env
 
 # Production
-ln -sf env/.env.production .env
+ln -sf environments/.env.production .env
 ```
 
-See `apps/api/env/.env.example` for all available configuration options.
+See `apps/api/environments/.env.example` for all available configuration options.
 
 ## ☸️ Infrastructure
 
@@ -330,7 +330,7 @@ pnpm test:coverage
 
 # Watch mode (in apps/api)
 cd apps/api
-php artisan test --watch
+bin/artisan test --watch
 ```
 
 ### Writing Tests
@@ -514,7 +514,7 @@ We use conventional commits with emojis:
 - [K9s Guide](infrastructure/docs/K9S_GUIDE.md)
 - [Deployment Summary](infrastructure/docs/DEPLOYMENT_SUMMARY.md)
 - [Laravel Octane Guide](apps/api/docs/OCTANE.md)
-- [Environment Configuration](apps/api/env/README.md)
+- [Environment Configuration](apps/api/environments/README.md)
 
 ## 📄 License
 
