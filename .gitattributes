@@ -1,130 +1,41 @@
-# ==============================================================================
-# Laravel Headless Starter - .gitattributes
-# ==============================================================================
-# Git attributes for consistent line endings and export behavior
-# ==============================================================================
+# Auto detect text files and perform LF normalization
+* text=auto
 
-# ------------------------------------------------------------------------------
-# Auto detect text files and normalize line endings to LF
-# ------------------------------------------------------------------------------
-* text=auto eol=lf
+# PHP
+*.php text eol=lf
+composer.lock text eol=lf merge=ours
 
-# ------------------------------------------------------------------------------
-# Source Code
-# ------------------------------------------------------------------------------
-*.php text diff=php
-*.blade.php text diff=html
-*.js text
-*.ts text
-*.jsx text
-*.tsx text
-*.json text
-*.css text diff=css
-*.scss text
-*.sass text
-*.less text
+# JavaScript/TypeScript
+*.js text eol=lf
+*.ts text eol=lf
+*.json text eol=lf
+pnpm-lock.yaml text eol=lf merge=ours
 
-# ------------------------------------------------------------------------------
-# Templates & Markup
-# ------------------------------------------------------------------------------
-*.html text diff=html
-*.xml text
-*.svg text
-*.twig text
+# Config files
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.ini text eol=lf
+*.neon text eol=lf
 
-# ------------------------------------------------------------------------------
-# Documentation
-# ------------------------------------------------------------------------------
-*.md text diff=markdown
-*.txt text
-*.rst text
-
-# ------------------------------------------------------------------------------
-# Configuration Files
-# ------------------------------------------------------------------------------
-*.yml text
-*.yaml text
-*.toml text
-*.ini text
-*.conf text
-*.config text
-.editorconfig text
-.gitattributes text
-.gitignore text
-
-# ------------------------------------------------------------------------------
-# Shell Scripts
-# ------------------------------------------------------------------------------
+# Shell scripts
 *.sh text eol=lf
-*.bash text eol=lf
+bin/* text eol=lf
 
-# ------------------------------------------------------------------------------
-# Docker
-# ------------------------------------------------------------------------------
-Dockerfile text
-docker-compose.yml text
-.dockerignore text
+# Markdown
+*.md text eol=lf
 
-# ------------------------------------------------------------------------------
-# Environment Files
-# ------------------------------------------------------------------------------
-.env* text
-*.env text
-
-# ------------------------------------------------------------------------------
-# Binary Files
-# ------------------------------------------------------------------------------
+# Images
 *.png binary
 *.jpg binary
 *.jpeg binary
 *.gif binary
 *.ico binary
-*.mov binary
-*.mp4 binary
-*.mp3 binary
-*.flv binary
-*.fla binary
-*.swf binary
-*.gz binary
-*.zip binary
-*.7z binary
-*.ttf binary
-*.eot binary
-*.woff binary
-*.woff2 binary
-*.pdf binary
+*.svg text
 
-# ------------------------------------------------------------------------------
 # Archives
-# ------------------------------------------------------------------------------
+*.zip binary
 *.tar binary
 *.gz binary
-*.bz2 binary
-*.xz binary
-*.zip binary
-*.rar binary
-
-# ------------------------------------------------------------------------------
-# Exclude from exports (git archive)
-# ------------------------------------------------------------------------------
-/.github export-ignore
-/.vscode export-ignore
-/.idea export-ignore
-/tests export-ignore
-/phpunit.xml export-ignore
-/.editorconfig export-ignore
-/.gitattributes export-ignore
-/.gitignore export-ignore
-/CONTRIBUTING.md export-ignore
-/OCTANE.md export-ignore
-/env/README.md export-ignore
-/.env.example export-ignore
-/env/.env.example export-ignore
-/env/.env.local export-ignore
-/env/.env.production export-ignore
-/env/.env.testing export-ignore
-
-# ------------------------------------------------------------------------------
-# Linguist (GitHub language detection)
-# ------------------------------------------------------------------------------
-*.blade.php linguist-language=php
+*.tgz binary
+*.phar binary

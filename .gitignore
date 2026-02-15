@@ -1,163 +1,45 @@
-# ==============================================================================
-# Laravel Headless Starter - .gitignore
-# ==============================================================================
-# Production-ready gitignore for Laravel applications
-# ==============================================================================
-
-# ------------------------------------------------------------------------------
-# Environment & Configuration
-# ------------------------------------------------------------------------------
-.env
-.env.*
-!.env.example
-env/.env
-env/.env.*
-!env/.env.example
-!env/.env.local
-!env/.env.production
-!env/.env.testing
-!env/README.md
-
-# ------------------------------------------------------------------------------
 # Dependencies
-# ------------------------------------------------------------------------------
-/vendor
-/node_modules
+node_modules
+vendor
+.pnp
+.pnp.js
 
-# ------------------------------------------------------------------------------
-# IDE & Editor Files
-# ------------------------------------------------------------------------------
-.idea/
-.vscode/
-.fleet/
-.nova/
-.zed/
-*.swp
-*.swo
-*~
-.DS_Store
-Thumbs.db
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# ------------------------------------------------------------------------------
-# Laravel Specific
-# ------------------------------------------------------------------------------
-/bootstrap/cache/*
-!bootstrap/cache/.gitignore
-/storage/*.key
-/storage/app/*
-!storage/app/.gitignore
-!storage/app/public
-!storage/app/private
-/storage/framework/cache/*
-!storage/framework/cache/.gitignore
-!storage/framework/cache/data
-/storage/framework/cache/data/*
-!storage/framework/cache/data/.gitignore
-/storage/framework/sessions/*
-!storage/framework/sessions/.gitignore
-/storage/framework/testing/*
-!storage/framework/testing/.gitignore
-/storage/framework/views/*
-!storage/framework/views/.gitignore
-/storage/logs/*
-!storage/logs/.gitignore
-/storage/pail
-
-# ------------------------------------------------------------------------------
-# Build & Compiled Files
-# ------------------------------------------------------------------------------
-/public/build
-/public/hot
-/public/storage
-npm-debug.log
-yarn-error.log
-
-# ------------------------------------------------------------------------------
 # Testing
-# ------------------------------------------------------------------------------
-.phpunit.result.cache
-.phpunit.cache/
-coverage/
-.phpactor.json
+coverage
 
-# ------------------------------------------------------------------------------
-# Logs
-# ------------------------------------------------------------------------------
-*.log
+# Turbo
+.turbo
+
+# Vercel
+.vercel
+
+# Build Outputs
+.next/
+out/
+build
+dist
+public/build/
+
+# PHP
+.phpstan.cache
+.infection.log
+.infection-summary.log
+.phpunit.result.cache
+.phpunit.cache
+
+# Debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*.log
 
-# ------------------------------------------------------------------------------
-# Database
-# ------------------------------------------------------------------------------
-*.sqlite
-*.sqlite-journal
-/database/*.sqlite
-/database/*.sqlite-journal
-
-# ------------------------------------------------------------------------------
-# Octane & Server Binaries
-# ------------------------------------------------------------------------------
-frankenphp
-frankenphp-worker.php
-rr
-swoole
-**/caddy
-
-# ------------------------------------------------------------------------------
-# Deployment & CI/CD
-# ------------------------------------------------------------------------------
-.deploy/
-.github/workflows/*.local.yml
-Homestead.json
-Homestead.yaml
-auth.json
-
-# ------------------------------------------------------------------------------
-# Backup Files
-# ------------------------------------------------------------------------------
-*.backup
-*.bak
-*.old
-*.orig
-
-# ------------------------------------------------------------------------------
-# OS Generated Files
-# ------------------------------------------------------------------------------
+# Misc
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-desktop.ini
-
-# ------------------------------------------------------------------------------
-# Temporary Files
-# ------------------------------------------------------------------------------
-*.tmp
-*.temp
-.cache/
-.temp/
-
-# ------------------------------------------------------------------------------
-# Security & Secrets
-# ------------------------------------------------------------------------------
 *.pem
-*.key
-*.crt
-*.p12
-*.pfx
-secrets/
-.secrets/
-
-# ------------------------------------------------------------------------------
-# Package Manager Locks (Optional - Uncomment if needed)
-# ------------------------------------------------------------------------------
-# Uncomment these if you want to ignore lock files
-# composer.lock
-# package-lock.json
-# yarn.lock
-# pnpm-lock.yaml
