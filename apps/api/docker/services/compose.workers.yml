@@ -13,35 +13,39 @@
 
 services:
   queue-worker:
+    env_file:
+      - ../../environments/.env.docker
     build:
-      context: ..
+      context: ../..
       dockerfile: docker/Dockerfile
-    container_name: laravel-queue-worker
-    command: php artisan queue:work --tries=3 --timeout=90 --sleep=3 --max-jobs=1000
+    # Note: container_name removed to allow replicas
+    command: bin/artisan queue:work --tries=3 --timeout=90 --sleep=3 --max-jobs=1000
     environment:
       - APP_ENV=${APP_ENV:-production}
       - APP_DEBUG=${APP_DEBUG:-false}
       - DB_CONNECTION=${DB_CONNECTION:-sqlite}
       - QUEUE_CONNECTION=${QUEUE_CONNECTION:-database}
     volumes:
-      - ../storage:/app/storage
-      - ../database/database.sqlite:/app/database/database.sqlite
+      - ../../storage:/var/www/html/storage
+      - ../../database/database.sqlite:/var/www/html/database/database.sqlite
     restart: unless-stopped
     depends_on:
       - app
     networks:
       - laravel
     deploy:
-      replicas: ${QUEUE_WORKERS:-2}
+      replicas: ${QUEUE_WORKER_REPLICAS:-2}
 
   scheduler:
+    env_file:
+      - ../../environments/.env.docker
     build:
-      context: ..
+      context: ../..
       dockerfile: docker/Dockerfile
-    container_name: laravel-scheduler
+    container_name: ${SCHEDULER_CONTAINER_NAME:-laravel-scheduler}
     command: >
       sh -c "while true; do
-        php artisan schedule:run --verbose --no-interaction &
+        bin/artisan schedule:run --verbose --no-interaction &
         sleep 60
       done"
     environment:
@@ -49,8 +53,8 @@ services:
       - APP_DEBUG=${APP_DEBUG:-false}
       - DB_CONNECTION=${DB_CONNECTION:-sqlite}
     volumes:
-      - ../storage:/app/storage
-      - ../database/database.sqlite:/app/database/database.sqlite
+      - ../../storage:/var/www/html/storage
+      - ../../database/database.sqlite:/var/www/html/database/database.sqlite
     restart: unless-stopped
     depends_on:
       - app
@@ -61,10 +65,10 @@ services:
   # Uncomment if using Laravel Horizon
   # horizon:
   #   build:
-  #     context: ..
+  #     context: ../..
   #     dockerfile: docker/Dockerfile
   #   container_name: laravel-horizon
-  #   command: php artisan horizon
+  #   command: bin/artisan horizon
   #   environment:
   #     - APP_ENV=${APP_ENV:-production}
   #     - APP_DEBUG=${APP_DEBUG:-false}

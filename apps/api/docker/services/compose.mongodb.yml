@@ -12,6 +12,8 @@
 
 services:
   mongodb:
+    env_file:
+      - ../../environments/.env.docker
     image: mongo:8
     container_name: laravel-mongodb
     ports:

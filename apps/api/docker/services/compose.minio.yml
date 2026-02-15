@@ -13,6 +13,8 @@
 
 services:
   minio:
+    env_file:
+      - ../../environments/.env.docker
     image: minio/minio:latest
     container_name: laravel-minio
     ports:

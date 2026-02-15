@@ -13,6 +13,8 @@
 
 services:
   postgres:
+    env_file:
+      - ../../environments/.env.docker
     image: postgres:16-alpine
     container_name: laravel-postgres
     ports:
@@ -34,6 +36,8 @@ services:
       - laravel
 
   pgadmin:
+    env_file:
+      - ../../environments/.env.docker
     image: dpage/pgadmin4:latest
     container_name: laravel-pgadmin
     ports:

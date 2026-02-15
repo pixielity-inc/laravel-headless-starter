@@ -12,13 +12,15 @@
 
 services:
   meilisearch:
+    env_file:
+      - ../../environments/.env.docker
     image: getmeili/meilisearch:v1.11
     container_name: laravel-meilisearch
     ports:
       - "${MEILISEARCH_PORT:-7700}:7700"
     environment:
-      MEILI_MASTER_KEY: ${MEILISEARCH_KEY:-masterKey}
-      MEILI_ENV: ${MEILI_ENV:-production}
+      MEILI_MASTER_KEY: ${MEILISEARCH_MASTER_KEY:-masterKeySecure123456}
+      MEILI_ENV: ${MEILISEARCH_ENV:-production}
       MEILI_NO_ANALYTICS: ${MEILI_NO_ANALYTICS:-true}
     volumes:
       - meilisearch_data:/meili_data
