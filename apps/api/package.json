@@ -5,16 +5,16 @@
   "packageManager": "pnpm@10.29.3",
   "scripts": {
     "composer:install": "composer install --no-interaction --prefer-dist --optimize-autoloader",
-    "dev": "php artisan serve",
-    "build": "php artisan config:cache && php artisan route:cache && php artisan view:cache",
-    "test": "php artisan test",
-    "test:unit": "php artisan test --testsuite=Unit",
-    "test:feature": "php artisan test --testsuite=Feature",
+    "dev": "bin/artisan serve",
+    "build": "bin/artisan config:cache && bin/artisan route:cache && bin/artisan view:cache",
+    "test": "bin/artisan test",
+    "test:unit": "bin/artisan test --testsuite=Unit",
+    "test:feature": "bin/artisan test --testsuite=Feature",
     "lint": "vendor/bin/pint --test",
     "format": "vendor/bin/pint",
     "typecheck": "vendor/bin/phpstan analyse",
-    "clean": "php artisan optimize:clear && rm -rf .phpunit.cache .phpstan.cache",
+    "clean": "bin/artisan optimize:clear && rm -rf .phpunit.cache .phpstan.cache",
     "cleanup": "rm -rf vendor node_modules .turbo .phpunit.cache .phpstan.cache bootstrap/cache/*.php public/build public/hot composer.lock pnpm-lock.yaml package-lock.json yarn.lock",
-    "deploy": "php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan migrate --force"
+    "deploy": "bin/artisan config:cache && bin/artisan route:cache && bin/artisan view:cache && bin/artisan migrate --force"
   }
 }
